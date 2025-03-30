@@ -65,8 +65,3 @@ PRIMALITY_RESULT SolovayStrassen::calc(uint64_t _base, uint64_t _num)
 
     return PRIMALITY_RESULT::PROBABLY_TRUE;
 }
-
-PRIMALITY_TEST SolovayStrassen::test(uint64_t _base)
-{
-    return std::bind(calc, _base, std::placeholders::_1);
-}

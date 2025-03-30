@@ -132,7 +132,7 @@
     <ClInclude Include="include\Fermat.h" />
     <ClInclude Include="include\Lucas.h" />
     <ClInclude Include="include\MillerRabin.h" />
-    <ClInclude Include="include\Primality.h" />
+    <ClInclude Include="include\PrimalityTest.h" />
     <ClInclude Include="include\SolovayStrassen.h" />
   </ItemGroup>
   <ItemGroup>
@@ -140,7 +140,7 @@
     <ClCompile Include="source\Lucas.cpp" />
     <ClCompile Include="source\main.cpp" />
     <ClCompile Include="source\MillerRabin.cpp" />
-    <ClCompile Include="source\Primality.cpp" />
+    <ClCompile Include="source\PrimalityTest.cpp" />
     <ClCompile Include="source\SolovayStrassen.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

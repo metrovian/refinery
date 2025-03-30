@@ -16,7 +16,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Primality.h">
+    <ClInclude Include="include\PrimalityTest.h">
       <Filter>Primality Test\Base</Filter>
     </ClInclude>
     <ClInclude Include="include\Lucas.h">
@@ -33,7 +33,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\Primality.cpp">
+    <ClCompile Include="source\PrimalityTest.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="source\main.cpp">
