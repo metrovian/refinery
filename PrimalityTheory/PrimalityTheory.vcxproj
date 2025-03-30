@@ -129,12 +129,14 @@
   <ItemGroup>
     <ClInclude Include="Fermat.h" />
     <ClInclude Include="Lucas.h" />
+    <ClInclude Include="MillerRabin.h" />
     <ClInclude Include="Primality.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Fermat.cpp" />
     <ClCompile Include="Lucas.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MillerRabin.cpp" />
     <ClCompile Include="Primality.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
