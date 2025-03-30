@@ -2,10 +2,10 @@
 Personal mathematical software to understand prime numbers in depth.
 <br/></br>
 ## Primality Theory ##
-- Fermat primality test
-- Lucas primality test
-- Miller-Rabin primality test
-- Solovay-Strassen primality test
+- Fermat primality
+- Lucas primality
+- Miller-Rabin primality
+- Solovay-Strassen primality
 <br/></br>
 ## Sieve Theory ##
 - Eratosthenes sieve
