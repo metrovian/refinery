@@ -2,6 +2,7 @@
 #include "Fermat.h"
 #include "Lucas.h"
 #include "MillerRabin.h"
+#include "SolovayStrassen.h"
 
 int main()
 {
@@ -9,7 +10,8 @@ int main()
 
 	//tests.push_back(Fermat::test(5));
 	//tests.push_back(Lucas::test(5));
-	tests.push_back(MillerRabin::test(5));
+	//tests.push_back(MillerRabin::test(5));
+	tests.push_back(SolovayStrassen::test(5));
 
 	srand(time(NULL));
 
