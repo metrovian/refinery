@@ -108,8 +108,3 @@ PRIMALITY_RESULT Lucas::calc(uint64_t _base, uint64_t _num)
 
     return PRIMALITY_RESULT::TRUE;
 }
-
-PRIMALITY_TEST Lucas::test(uint64_t _base)
-{
-    return std::bind(calc, _base, std::placeholders::_1);
-}

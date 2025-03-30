@@ -1,14 +1,11 @@
 #pragma once
-#include "Primality.h"
+#include "PrimalityTest.h"
 
 class MillerRabin
 {
-protected: /* factor */
+protected: /* parts */
 	static std::pair<uint64_t, uint64_t> factor(uint64_t _num);
 
-protected: /* parts */
-	static PRIMALITY_RESULT calc(uint64_t _base, uint64_t _num);
-
 public: /* public */
-	static PRIMALITY_TEST test(uint64_t _base);
+	static PRIMALITY_RESULT calc(uint64_t _base, uint64_t _num);
 };

@@ -1,4 +1,4 @@
-#include "Primality.h"
+#include "PrimalityTest.h"
 #include "Fermat.h"
 #include "Lucas.h"
 #include "MillerRabin.h"
@@ -6,12 +6,12 @@
 
 int main()
 {
-	Primality tests;
+	PrimalityTest test;
 
-	tests.push_back(Fermat::test(5));
-	tests.push_back(Lucas::test(5));
-	tests.push_back(MillerRabin::test(5));
-	tests.push_back(SolovayStrassen::test(5));
+	test.push_back("Fermat", 5);
+	test.push_back("Lucas", 5);
+	test.push_back("Miller-Rabin", 5);
+	test.push_back("Solovay-Strassen", 5);
 
 	srand(time(NULL));
 
@@ -19,7 +19,7 @@ int main()
 	{
 		uint64_t num = rand();
 
-		std::cout << num << (tests.is_prime(num) ? " is prime" : " is composite");
+		std::cout << num << (test.is_prime(num) ? " is prime" : " is composite");
 		std::cout << std::endl;
 	}
 

@@ -30,8 +30,3 @@ PRIMALITY_RESULT Fermat::calc(uint64_t _base, uint64_t _num)
 
     return PRIMALITY_RESULT::FALSE;
 }
-
-PRIMALITY_TEST Fermat::test(uint64_t _base)
-{
-	return std::bind(calc, _base, std::placeholders::_1);
-}
