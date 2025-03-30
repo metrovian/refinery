@@ -4,32 +4,38 @@
 #include "MillerRabin.h"
 #include "SolovayStrassen.h"
 
-bool PrimalityTest::push_back(std::string _name, uint64_t _base)
+bool PrimalityTest::push_back(PRIMALITY_TYPE _name, uint64_t _base)
 {
-    if (_name == "Fermat")
+    switch (_name)
+    {
+
+    case PRIMALITY_TYPE::FERMAT:
     {
         data.push_back(std::bind(Fermat::calc, _base, std::placeholders::_1));
+        break;
     }
 
-	else if (_name == "Lucas")
-	{
-		data.push_back(std::bind(Lucas::calc, _base, std::placeholders::_1));
-	}
+    case PRIMALITY_TYPE::LUCAS:
+    {
+        data.push_back(std::bind(Lucas::calc, _base, std::placeholders::_1));
+        break;
+    }
 
-	else if (_name == "Miller-Rabin")
-	{
+    case PRIMALITY_TYPE::MILLER_RABIN:
+    {
 		data.push_back(std::bind(MillerRabin::calc, _base, std::placeholders::_1));
-	}
+        break;
+    }
 
-	else if (_name == "Solovay-Strassen")
-	{
-		data.push_back(std::bind(SolovayStrassen::calc, _base, std::placeholders::_1));
-	}
+    case PRIMALITY_TYPE::SOLOVAY_STRASSEN:
+    {
+        data.push_back(std::bind(SolovayStrassen::calc, _base, std::placeholders::_1));
+        break;
+    }
+    
+    default: return false;
 
-	else
-	{
-		return false;
-	}
+    }
 
     return true;
 }

@@ -5,31 +5,31 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Primality Test">
+    <Filter Include="Primality">
       <UniqueIdentifier>{04192701-5b68-4085-9f12-7b55b9b1dd12}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Primality Test\Base">
+    <Filter Include="Primality\Base">
       <UniqueIdentifier>{a1b0013c-a851-41b8-ab16-0de41d0fd41b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Primality Test\Concrete">
+    <Filter Include="Primality\Concrete">
       <UniqueIdentifier>{d6cd5916-91b9-48bf-8887-1bf8dd285b78}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\PrimalityTest.h">
-      <Filter>Primality Test\Base</Filter>
+      <Filter>Primality\Base</Filter>
     </ClInclude>
     <ClInclude Include="include\Lucas.h">
-      <Filter>Primality Test\Concrete</Filter>
+      <Filter>Primality\Concrete</Filter>
     </ClInclude>
     <ClInclude Include="include\MillerRabin.h">
-      <Filter>Primality Test\Concrete</Filter>
+      <Filter>Primality\Concrete</Filter>
     </ClInclude>
     <ClInclude Include="include\Fermat.h">
-      <Filter>Primality Test\Concrete</Filter>
+      <Filter>Primality\Concrete</Filter>
     </ClInclude>
     <ClInclude Include="include\SolovayStrassen.h">
-      <Filter>Primality Test\Concrete</Filter>
+      <Filter>Primality\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
