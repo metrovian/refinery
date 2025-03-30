@@ -131,6 +131,7 @@
     <ClInclude Include="Lucas.h" />
     <ClInclude Include="MillerRabin.h" />
     <ClInclude Include="Primality.h" />
+    <ClInclude Include="SolovayStrassen.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Fermat.cpp" />
@@ -138,6 +139,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MillerRabin.cpp" />
     <ClCompile Include="Primality.cpp" />
+    <ClCompile Include="SolovayStrassen.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
