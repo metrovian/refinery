@@ -8,10 +8,10 @@ int main()
 {
 	PrimalityTest test;
 
-	test.push_back("Fermat", 5);
-	test.push_back("Lucas", 5);
-	test.push_back("Miller-Rabin", 5);
-	test.push_back("Solovay-Strassen", 5);
+	test.push_back(PRIMALITY_TYPE::FERMAT, 5);
+	test.push_back(PRIMALITY_TYPE::LUCAS, 5);
+	test.push_back(PRIMALITY_TYPE::MILLER_RABIN, 5);
+	test.push_back(PRIMALITY_TYPE::SOLOVAY_STRASSEN, 5);
 
 	srand(time(NULL));
 
