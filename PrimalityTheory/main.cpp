@@ -1,13 +1,15 @@
 #include "Primality.h"
 #include "Fermat.h"
 #include "Lucas.h"
+#include "MillerRabin.h"
 
 int main()
 {
 	Primality tests;
 
 	//tests.push_back(Fermat::test(5));
-	tests.push_back(Lucas::test(5));
+	//tests.push_back(Lucas::test(5));
+	tests.push_back(MillerRabin::test(5));
 
 	srand(time(NULL));
 
