@@ -8,9 +8,9 @@ int main()
 {
 	Primality tests;
 
-	//tests.push_back(Fermat::test(5));
-	//tests.push_back(Lucas::test(5));
-	//tests.push_back(MillerRabin::test(5));
+	tests.push_back(Fermat::test(5));
+	tests.push_back(Lucas::test(5));
+	tests.push_back(MillerRabin::test(5));
 	tests.push_back(SolovayStrassen::test(5));
 
 	srand(time(NULL));

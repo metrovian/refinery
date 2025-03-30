@@ -16,39 +16,39 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Primality.h">
+    <ClInclude Include="include\Primality.h">
       <Filter>Primality Test\Base</Filter>
     </ClInclude>
-    <ClInclude Include="Lucas.h">
+    <ClInclude Include="include\Lucas.h">
       <Filter>Primality Test\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="MillerRabin.h">
+    <ClInclude Include="include\MillerRabin.h">
       <Filter>Primality Test\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="Fermat.h">
+    <ClInclude Include="include\Fermat.h">
       <Filter>Primality Test\Concrete</Filter>
     </ClInclude>
-    <ClInclude Include="SolovayStrassen.h">
+    <ClInclude Include="include\SolovayStrassen.h">
       <Filter>Primality Test\Concrete</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Primality.cpp">
+    <ClCompile Include="source\Primality.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Fermat.cpp">
+    <ClCompile Include="source\Fermat.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Lucas.cpp">
+    <ClCompile Include="source\Lucas.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MillerRabin.cpp">
+    <ClCompile Include="source\MillerRabin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SolovayStrassen.cpp">
+    <ClCompile Include="source\SolovayStrassen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

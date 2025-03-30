@@ -104,6 +104,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,6 +119,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>.\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -127,19 +129,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Fermat.h" />
-    <ClInclude Include="Lucas.h" />
-    <ClInclude Include="MillerRabin.h" />
-    <ClInclude Include="Primality.h" />
-    <ClInclude Include="SolovayStrassen.h" />
+    <ClInclude Include="include\Fermat.h" />
+    <ClInclude Include="include\Lucas.h" />
+    <ClInclude Include="include\MillerRabin.h" />
+    <ClInclude Include="include\Primality.h" />
+    <ClInclude Include="include\SolovayStrassen.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Fermat.cpp" />
-    <ClCompile Include="Lucas.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MillerRabin.cpp" />
-    <ClCompile Include="Primality.cpp" />
-    <ClCompile Include="SolovayStrassen.cpp" />
+    <ClCompile Include="source\Fermat.cpp" />
+    <ClCompile Include="source\Lucas.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\MillerRabin.cpp" />
+    <ClCompile Include="source\Primality.cpp" />
+    <ClCompile Include="source\SolovayStrassen.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
