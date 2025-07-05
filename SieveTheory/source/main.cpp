@@ -8,18 +8,18 @@
 
 void get_time(void (*func)())
 {
-    LARGE_INTEGER freq;
-    LARGE_INTEGER start;
-    LARGE_INTEGER end;
+	LARGE_INTEGER freq;
+	LARGE_INTEGER start;
+	LARGE_INTEGER end;
 
-    QueryPerformanceFrequency(&freq);
-    QueryPerformanceCounter(&start);
+	QueryPerformanceFrequency(&freq);
+	QueryPerformanceCounter(&start);
 
-    func();
+	func();
 
-    QueryPerformanceCounter(&end);
+	QueryPerformanceCounter(&end);
 
-    printf("Elapsed Time: %lf seconds\n\n", (double)(end.QuadPart - start.QuadPart) / freq.QuadPart);
+	printf("Elapsed Time: %lf seconds\n\n", (double)(end.QuadPart - start.QuadPart) / freq.QuadPart);
 }
 
 uint64_t max = 1000000;
@@ -32,11 +32,11 @@ void test5() { SundaramSieve s; s.run(std::to_string(max), "x64/test5.txt"); }
 
 int main()
 {
-    get_time(test1);
-    get_time(test2);
-    get_time(test3);
-    get_time(test4);
-    get_time(test5);
+	get_time(test1);
+	get_time(test2);
+	get_time(test3);
+	get_time(test4);
+	get_time(test5);
 
 	return 0;
 }

@@ -16,14 +16,14 @@ bool PritchardSieve::process_pre(std::string _min, std::string _max)
 
 	std::call_once
 	(
-		once, 
+		once,
 		[this]()
 		{
 			cps = std::priority_queue
 				<
-					std::pair<std::string, std::string>,
-					std::vector<std::pair<std::string, std::string>>,
-					decltype(&PritchardSieve::greater_pair)
+				std::pair<std::string, std::string>,
+				std::vector<std::pair<std::string, std::string>>,
+				decltype(&PritchardSieve::greater_pair)
 				>(&PritchardSieve::greater_pair);
 		}
 	);
@@ -35,7 +35,7 @@ bool PritchardSieve::process_pre(std::string _min, std::string _max)
 	{
 		psqr = square(prm);
 
-		if (less(psqr, _max)) 
+		if (less(psqr, _max))
 		{
 			if (less(psqr, _min))
 			{

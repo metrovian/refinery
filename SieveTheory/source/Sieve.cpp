@@ -31,7 +31,7 @@ std::string Sieve::mod(const std::string& _num, const std::string& _mod)
 	{
 		uint64_t num = std::stoull(_num);
 		uint64_t mod = std::stoull(_mod);
-		
+
 		return std::to_string(num % mod);
 	}
 
@@ -70,13 +70,13 @@ std::string Sieve::mod(const std::string& _num, const std::string& _mod)
 
 std::string Sieve::modplus(const std::string& _num, const std::string& _mum, const std::string& _mod)
 {
-    uint64_t nlen = _num.length();
-    uint64_t mlen = _mum.length();
+	uint64_t nlen = _num.length();
+	uint64_t mlen = _mum.length();
 
 	uint64_t plen = std::min(nlen, mlen);
 	uint64_t flen = std::max(nlen, mlen) + 1;
 
-    std::string ret(flen, '0');
+	std::string ret(flen, '0');
 
 	for (uint64_t i = 0; i < plen; ++i)
 	{
@@ -400,7 +400,7 @@ bool Sieve::select(std::string _min, std::string _max)
 bool Sieve::save(std::string _fname)
 {
 	std::ofstream ofs(_fname);
-	
+
 	if (ofs.is_open())
 	{
 		ofs << primes.rdbuf();

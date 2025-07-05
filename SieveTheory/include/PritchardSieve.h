@@ -9,10 +9,10 @@ protected: /* range */
 
 protected: /* data */
 	std::priority_queue
-		<	
-			std::pair<std::string, std::string>,
-			std::vector<std::pair<std::string, std::string>>,
-			decltype(&PritchardSieve::greater_pair)
+		<
+		std::pair<std::string, std::string>,
+		std::vector<std::pair<std::string, std::string>>,
+		decltype(&PritchardSieve::greater_pair)
 		> cps;
 
 protected: /* virtual */
