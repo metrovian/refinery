@@ -1,6 +1,3 @@
-# Prime Generator #
-Personal mathematical software to understand prime numbers in depth.
-<br/></br>
 ## Primality Theory ##
 - Fermat primality
 - Lucas primality
