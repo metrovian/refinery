@@ -1,0 +1,12 @@
+FROM ubuntu:24.04
+ENV DEBIAN_FRONTEND=noninteractive
+
+COPY 3rdparty/setup-debian.sh /tmp/
+RUN bash /tmp/setup-debian.sh
+
+WORKDIR /app
+COPY pendulum /app/pendulum
+COPY script/setup-pendulum.sh /app/
+RUN bash /app/setup-pendulum.sh
+
+CMD ["/app/pendulum/build/pendulum-service"]

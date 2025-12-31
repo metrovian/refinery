@@ -1,0 +1,10 @@
+version: "3.9"
+
+services:
+  pendulum:
+    build:
+      context: .
+      dockerfile: dockerfile.pendulum
+    container_name: pendulum-service
+    ports:
+      - "50051:50051"
