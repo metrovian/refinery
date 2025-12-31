@@ -11,7 +11,7 @@
 class pendulum_abstract {
 protected: /* constant */
 	const double gravity_ = 9.807E+0;
-	const double dt_ = 1.000E-5;
+	const double dt_ = 1.000E-2;
 
 protected: /* parameter */
 	double time_ = 0.000E+0;
