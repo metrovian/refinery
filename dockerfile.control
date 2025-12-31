@@ -1,0 +1,9 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+COPY control /app/control
+COPY pendulum/proto /app/control/proto
+COPY script/setup-control.sh /app/
+RUN bash /app/setup-control.sh
+
+CMD ["python", "/app/control/simple.py"]

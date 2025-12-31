@@ -8,3 +8,11 @@ services:
     container_name: pendulum-service
     ports:
       - "50051:50051"
+
+  control:
+    build:
+      context: .
+      dockerfile: dockerfile.control
+    container_name: control-service
+    depends_on:
+      - pendulum

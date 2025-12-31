@@ -1,13 +1,11 @@
 #!/bin/bash
-apt update
-apt install -y \
-        build-essential \
-        meson \
-        ninja-build \
-        pkg-config \
+sudo apt update
+sudo apt install \
         protobuf-compiler \
         libprotobuf-dev \
         libgrpc++-dev \
         libgrpc-dev \
         protobuf-compiler \
         protobuf-compiler-grpc \
+        python3-grpcio \
+        python3-grpc-tools \
