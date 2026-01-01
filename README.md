@@ -1,7 +1,7 @@
 ## Features
-- Pendulum stop scenario simulation
+- Simple pendulum stop scenario
 ## Services
-- Pendulum simulation
+- Simple pendulum model simulation
 - Stop control
 - Scenario orchestration
 <br></br>
