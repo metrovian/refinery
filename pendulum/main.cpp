@@ -22,6 +22,25 @@ grpc::Status pendulum_service::reset(
 	return grpc::Status::OK;
 }
 
+grpc::Status pendulum_service::stream_state(
+    grpc::ServerContext *,
+    const pendulum::empty *,
+    grpc::ServerWriter<pendulum::state> *writer) {
+	while (true) {
+		pendulum::state state;
+		state.set_time(model_->get_time());
+		state.set_theta(model_->get_theta());
+		state.set_omega(model_->get_omega());
+		if (writer->Write(state) == false) {
+			break;
+		}
+
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+	}
+
+	return grpc::Status::OK;
+}
+
 pendulum_service::pendulum_service() {
 	model_ = std::make_unique<pendulum_simple>();
 }

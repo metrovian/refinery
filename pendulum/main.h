@@ -19,6 +19,11 @@ public: /* proto */
 	    const pendulum::request_reset *request,
 	    pendulum::state *reply) override final;
 
+	grpc::Status stream_state(
+	    grpc::ServerContext *context,
+	    const pendulum::empty *request,
+	    grpc::ServerWriter<pendulum::state> *writer) override final;
+
 public: /* constructor */
 	pendulum_service();
 };

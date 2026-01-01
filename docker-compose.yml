@@ -16,3 +16,15 @@ services:
     container_name: control-service
     depends_on:
       - pendulum
+
+  orch:
+    build:
+      context: .
+      dockerfile: dockerfile.orch
+    container_name: orch-service
+    depends_on:
+      - pendulum
+      - control
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/app/data
