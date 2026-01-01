@@ -1,2 +1,6 @@
-# pendulum-simulator
-APP-2026-01
+## Features
+- Pendulum stop scenario simulation
+## Services
+- Pendulum simulation
+- Stop control
+- Scenario orchestration
