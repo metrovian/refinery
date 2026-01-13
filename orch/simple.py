@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from datetime import datetime
-from prometheus_client import start_http_server, Gauge, Counter
+from prometheus_client import start_http_server, Gauge
 import os
 import csv
 import time
@@ -12,9 +12,6 @@ import pendulum_pb2_grpc
 if __name__ == "__main__":
     start_http_server(8000)
     simulation_time = Gauge("simulation_time", "simulation_time")
-    simulation_start_total = Counter("simulation_start_total", "simulation_start_total")
-    simulation_stop_total = Counter("simulation_stop_total", "simulation_stop_total")
-    simulation_start_total.inc()
     channel = grpc.insecure_channel("pendulum-service:50051")
     stub = pendulum_pb2_grpc.pendulumStub(channel)
     reset_req = pendulum_pb2.request_reset(theta=1.0, omega=0.0)
@@ -57,4 +54,3 @@ if __name__ == "__main__":
     client = docker.from_env()
     client.containers.get("control-service").stop()
     client.containers.get("pendulum-service").stop()
-    simulation_stop_total.inc()

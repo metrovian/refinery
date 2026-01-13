@@ -4,38 +4,6 @@
   "schemaVersion": 38,
   "version": 1,
   "refresh": "1s",
-  "annotations": {
-    "list": [
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": false,
-        "iconColor": "green",
-        "name": "simulation_start",
-        "type": "query",
-        "target": {
-          "expr": "increase(simulation_start_total[1m]) > 0"
-        }
-      },
-      {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "-- Grafana --"
-        },
-        "enable": true,
-        "hide": false,
-        "iconColor": "red",
-        "name": "simulation_stop",
-        "type": "query",
-        "target": {
-          "expr": "increase(simulation_stop_total[1m]) > 0"
-        }
-      }
-    ]
-  },
   "panels": [
     {
       "type": "timeseries",
