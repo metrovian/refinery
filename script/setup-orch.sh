@@ -3,6 +3,7 @@ pip install \
         docker \
         grpcio \
         grpcio-tools \
+        prometheus-client \
 
 python -m grpc_tools.protoc \
         -I/app/orch/proto \
