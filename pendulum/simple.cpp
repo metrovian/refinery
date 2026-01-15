@@ -1,7 +1,7 @@
 #include "simple.h"
 
 void pendulum_simple::step(double tau) {
-	double gravity = gravity_ * theta_ / length_;
+	double gravity = gravity_ / length_ * std::sin(theta_);
 	double damp = damp_ * omega_;
 	time_ += dt_;
 	theta_ += omega_ * dt_;
