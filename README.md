@@ -1,6 +1,6 @@
 ## Features
-- Simple pendulum stop scenario
+- Simple pendulum scenario
 - Simple pendulum model simulation
-- Stop control
+- Energy control
 - Scenario orchestration
 <br></br>
