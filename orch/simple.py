@@ -29,16 +29,18 @@ def calc_period(theta: float, time: float):
 
 if __name__ == "__main__":
     start_http_server(8000)
-    gauge_time = Gauge("simulation_time", "simulation_time")
-    gauge_energy = Gauge("pendulum_energy", "pendulum_energy")
-    gauge_period = Gauge("pendulum_period", "pendulum_period")
+    gauge_time = Gauge("simulation_time_second", "simulation_time")
+    gauge_period = Gauge("pendulum_period_second", "pendulum_period")
+    gauge_energy = Gauge("pendulum_energy_joule", "pendulum_energy")
+    gauge_target = Gauge("pendulum_energy_target_joule", "pendulum_energy_target")
+    
     channel = grpc.insecure_channel("pendulum-service:50051")
     stub = pendulum_pb2_grpc.pendulumStub(channel)
     reset_req = pendulum_pb2.request_reset(theta=1.0, omega=0.0)
     state = stub.reset(reset_req)
+    gauge_target.set(calc_energy(state.theta, state.omega))
     print(
         f"start: "
-        f"time={state.time:.2f}, "
         f"theta={state.theta:.4f}, "
         f"omega={state.omega:.4f}",
         flush=True,
