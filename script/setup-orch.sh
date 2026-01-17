@@ -1,5 +1,6 @@
 #!/bin/bash
 pip install \
+        numpy \
         docker \
         grpcio \
         grpcio-tools \
