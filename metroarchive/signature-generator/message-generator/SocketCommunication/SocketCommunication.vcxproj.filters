@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Data Predefined">
+      <UniqueIdentifier>{c816fe04-e92d-4355-9fef-93a76e71125a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Protocol">
+      <UniqueIdentifier>{a22f2032-1037-435f-8da4-0d015bcb0062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Protocol\Transmission Control Protocol">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Data Protocol\Transmission Control Protocol\Base">
+      <UniqueIdentifier>{0c786ac9-eb3c-4ff1-bf3f-2433f51ed108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Protocol\Transmission Control Protocol\Concrete">
+      <UniqueIdentifier>{3848c1af-34e2-4def-89c1-5ec6470001a1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Protocol\User Datagram Protocol">
+      <UniqueIdentifier>{0fc216e2-6c7c-4c55-a609-c2a123cc6072}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Protocol\User Datagram Protocol\Base">
+      <UniqueIdentifier>{ed3498a9-222f-42df-9eb3-6247a222492c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Protocol\User Datagram Protocol\Concrete">
+      <UniqueIdentifier>{84547466-6ee6-486e-8c13-1c82bb99499f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Frame">
+      <UniqueIdentifier>{9ba31968-5f87-4825-9a27-9e3ae13f6385}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\ServerTCP.h">
+      <Filter>Data Protocol\Transmission Control Protocol\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ClientTCP.h">
+      <Filter>Data Protocol\Transmission Control Protocol\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Predefined.h">
+      <Filter>Data Predefined</Filter>
+    </ClInclude>
+    <ClInclude Include="include\UDP.h">
+      <Filter>Data Protocol\User Datagram Protocol\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ClientHSMS.h">
+      <Filter>Data Protocol\Transmission Control Protocol\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ServerHSMS.h">
+      <Filter>Data Protocol\Transmission Control Protocol\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ClientHTTP.h">
+      <Filter>Data Protocol\Transmission Control Protocol\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ServerHTTP.h">
+      <Filter>Data Protocol\Transmission Control Protocol\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FrameHTTP.h">
+      <Filter>Data Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FrameHSMS.h">
+      <Filter>Data Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FrameDHCP.h">
+      <Filter>Data Frame</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ServerSNMP.h">
+      <Filter>Data Protocol\User Datagram Protocol\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FrameSNMP.h">
+      <Filter>Data Frame</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ServerTCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ClientTCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UDP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ClientHSMS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ServerHSMS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ServerHTTP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ClientHTTP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ServerDHCP.h">
+      <Filter>Data Protocol\User Datagram Protocol\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ServerDHCP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ServerSNMP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

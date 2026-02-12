@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Sieve">
+      <UniqueIdentifier>{2af93f42-763f-46f9-8e98-e945a20586f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sieve\Base">
+      <UniqueIdentifier>{64844e2f-9639-4b9a-93da-a5b387d4b577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sieve\Concrete">
+      <UniqueIdentifier>{7d36a999-ead6-46eb-a9c5-7cfb0b6bc922}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Sieve.h">
+      <Filter>Sieve\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EratosthenesSieve.h">
+      <Filter>Sieve\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EulerSieve.h">
+      <Filter>Sieve\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AtkinSieve.h">
+      <Filter>Sieve\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PritchardSieve.h">
+      <Filter>Sieve\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SundaramSieve.h">
+      <Filter>Sieve\Concrete</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\Sieve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EratosthenesSieve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EulerSieve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AtkinSieve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PritchardSieve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SundaramSieve.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

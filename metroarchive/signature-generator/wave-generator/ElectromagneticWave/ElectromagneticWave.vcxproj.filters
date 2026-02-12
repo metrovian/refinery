@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Data Structure">
+      <UniqueIdentifier>{a9e16ac7-a3a1-47ed-ab22-07d22d8166b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Predefined">
+      <UniqueIdentifier>{3db1aa69-806b-423a-9a6b-c717702b587f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis">
+      <UniqueIdentifier>{db589f7f-c987-41e1-83fe-a5ed902edca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Finite Difference Time Domain">
+      <UniqueIdentifier>{475b042a-c6f0-4365-84a9-7db86e0c5835}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Finite Difference Time Domain\Base">
+      <UniqueIdentifier>{b43ce248-ca2a-40ea-8a8f-00400ec88002}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Finite Difference Time Domain\Concrete">
+      <UniqueIdentifier>{7c654890-b68e-4760-9ebb-14fe0b08f0eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Dipole Approximation">
+      <UniqueIdentifier>{000845f2-21a7-4a99-bd6b-e70b211554cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Dipole Approximation\Base">
+      <UniqueIdentifier>{a3ed8501-b8e8-421d-a19a-41590d319bab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Dipole Approximation\Concrete">
+      <UniqueIdentifier>{f17a4d14-d7c8-4bad-ae12-e111221eaa3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Boundary Element">
+      <UniqueIdentifier>{8282f73a-195c-42e9-aa46-720f9f8d7c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Boundary Element\Base">
+      <UniqueIdentifier>{096b3741-25e2-4478-804a-7f527aabe56d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Field Synthesis\Boundary Element\Concrete">
+      <UniqueIdentifier>{b2de847a-e184-475c-a743-3b9224dd0cf4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Predefined.h">
+      <Filter>Data Predefined</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WaveField.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WaveViewer.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FDTD.h">
+      <Filter>Field Synthesis\Finite Difference Time Domain\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FreeSpaceFDTD.h">
+      <Filter>Field Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PlanarWaveguideFDTD.h">
+      <Filter>Field Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BraggReflectorFDTD.h">
+      <Filter>Field Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DDA.h">
+      <Filter>Field Synthesis\Dipole Approximation\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SquareDDA.h">
+      <Filter>Field Synthesis\Dipole Approximation\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LineDDA.h">
+      <Filter>Field Synthesis\Dipole Approximation\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BEM.h">
+      <Filter>Field Synthesis\Boundary Element\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LineBEM.h">
+      <Filter>Field Synthesis\Boundary Element\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\SquareBEM.h">
+      <Filter>Field Synthesis\Boundary Element\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EigenMatrix.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\WaveField.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\WaveViewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FreeSpaceFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PlanarWaveguideFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\BraggReflectorFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DDA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SquareDDA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LineDDA.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\BEM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EigenMatrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LineBEM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SquareBEM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

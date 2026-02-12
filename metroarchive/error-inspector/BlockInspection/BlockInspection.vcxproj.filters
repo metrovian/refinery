@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Block">
+      <UniqueIdentifier>{1160e386-7bb8-423b-916a-f475a4bdd2e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Block\Base">
+      <UniqueIdentifier>{a1572d0b-ee56-497a-a7b9-4673bb71ca57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Block\Concrete">
+      <UniqueIdentifier>{c6167b72-e22e-42c3-b88c-e8a32f0c4be6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Block.h">
+      <Filter>Block\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Hamming74.h">
+      <Filter>Block\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Hadamard32.h">
+      <Filter>Block\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Expander84.h">
+      <Filter>Block\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Golay23.h">
+      <Filter>Block\Concrete</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Hamming74.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Hadamard32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Expander84.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Golay23.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\ReedSolomon73.h">
+      <Filter>Block\Concrete</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ReedSolomon73.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

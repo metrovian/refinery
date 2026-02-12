@@ -1,0 +1,9 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+COPY orch /app/orch
+COPY pendulum/proto /app/orch/proto
+COPY script/setup-orch.sh /app/
+RUN bash /app/setup-orch.sh
+
+CMD ["python", "/app/orch/simple.py"]

@@ -1,0 +1,8 @@
+FROM ubuntu:24.04
+
+WORKDIR /app
+COPY pendulum /app/pendulum
+COPY script/setup-pendulum.sh /app/
+RUN bash /app/setup-pendulum.sh
+
+CMD ["/app/pendulum/build/pendulum-service"]

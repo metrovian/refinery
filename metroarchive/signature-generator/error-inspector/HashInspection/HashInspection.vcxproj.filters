@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{083418f3-583c-4be5-a1b1-59320d899283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hash">
+      <UniqueIdentifier>{399b3dfb-38a9-421f-bc67-275a48145bc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hash\Base">
+      <UniqueIdentifier>{1dfadb9a-0259-43ff-9e95-63083c21bdf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hash\Concrete">
+      <UniqueIdentifier>{6df6cf79-89a1-40b5-bf8d-6637b50c7bfc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hash\Concrete\Custom Hash">
+      <UniqueIdentifier>{47d3f07b-fc5e-4cf9-b67a-c8787d2237af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Hash\Concrete\Standard Hash">
+      <UniqueIdentifier>{fdad921b-9e21-441b-b732-078b5b9be720}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\SHA512.h">
+      <Filter>Hash\Concrete\Standard Hash</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MD5.h">
+      <Filter>Hash\Concrete\Standard Hash</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FibonacciHash.h">
+      <Filter>Hash\Concrete\Custom Hash</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MultiplicativeHash.h">
+      <Filter>Hash\Concrete\Custom Hash</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Hash.h">
+      <Filter>Hash\Base</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\FibonacciHash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\Hash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MD5.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MultiplicativeHash.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SHA256.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\SHA512.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\SHA256.h">
+      <Filter>Hash\Concrete\Standard Hash</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Sound Synthesis">
+      <UniqueIdentifier>{1dcc60da-45a1-4285-9516-12844bfc1a9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Digital Waveguide">
+      <UniqueIdentifier>{43c7d39a-2f80-472b-ae8a-488f2394d50f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Digital Waveguide\Base">
+      <UniqueIdentifier>{36109a0f-7c7e-46fc-8dc2-7fbe11819d80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Digital Waveguide\Concrete">
+      <UniqueIdentifier>{91dbd8d3-58c5-45e2-8ac7-df1e49e2e879}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Structure">
+      <UniqueIdentifier>{ae12a065-478d-4f3d-90f2-3d1b15fadf60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Transform">
+      <UniqueIdentifier>{ca1177c0-33fe-4ff9-8be8-238d7f83d3cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Device Control">
+      <UniqueIdentifier>{4ded4dc8-2d61-49dc-a040-70a9adb91351}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Modulaion">
+      <UniqueIdentifier>{af41e376-2bb0-4434-a82e-3c5b44358c26}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Finite Difference Time Domain">
+      <UniqueIdentifier>{07eded11-ceac-4417-a352-0aa1a54c0fbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Finite Difference Time Domain\Base">
+      <UniqueIdentifier>{b924735c-74d2-4ccf-82da-aa4876f101b1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Sound Synthesis\Finite Difference Time Domain\Concrete">
+      <UniqueIdentifier>{1325f8ce-188d-40e3-acc3-191bc991b219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Predefined">
+      <UniqueIdentifier>{e401af6f-f84e-4f31-9b9d-5219cc1b97fe}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\WaveFunction.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FourierTransform.h">
+      <Filter>Data Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WaveletTransform.h">
+      <Filter>Data Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MelodyFunction.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\AmplitudeModulation.h">
+      <Filter>Sound Modulaion</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FrequencyModulation.h">
+      <Filter>Sound Modulaion</Filter>
+    </ClInclude>
+    <ClInclude Include="include\MIDI.h">
+      <Filter>Device Control</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DigitalWaveguide.h">
+      <Filter>Sound Synthesis\Digital Waveguide\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PluckStringKS.h">
+      <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BowStringLP.h">
+      <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EigenMatrix.h">
+      <Filter>Data Structure</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HammerStringCM.h">
+      <Filter>Sound Synthesis\Digital Waveguide\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\FDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\StringFDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PipeFDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HornFDTD.h">
+      <Filter>Sound Synthesis\Finite Difference Time Domain\Concrete</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Predefined.h">
+      <Filter>Data Predefined</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\WaveFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MelodyFunction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FourierTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\WaveletTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FrequencyModulation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\AmplitudeModulation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\MIDI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DigitalWaveguide.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PluckStringKS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\BowStringLP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\EigenMatrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\HammerStringCM.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\FDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\StringFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PipeFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\HornFDTD.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

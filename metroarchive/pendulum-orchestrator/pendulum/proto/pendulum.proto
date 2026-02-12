@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package pendulum;
+
+service pendulum {
+  rpc step(request_step) returns (state);
+  rpc reset(request_reset) returns (state);
+  rpc stream_state(empty) returns (stream state);
+}
+
+message request_step {
+  double tau = 1;
+}
+
+message request_reset {
+  double theta = 1;
+  double omega = 2;
+}
+
+message state {
+  double time = 1;
+  double theta = 2;
+  double omega = 3;
+}
+
+message empty {}
