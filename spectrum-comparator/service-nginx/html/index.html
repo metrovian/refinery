@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="style.css">
+	<title>Spectrum Comparator</title>
+</head>
+<body>
+	<div class="container">
+		<h1>Spectrum Comparator</h1>
+		<div class="radio-group">
+			<label><input type="radio" name="specType" value="mass" checked> mass</label>
+			<label><input type="radio" name="specType" value="nmr"> nmr</label>
+			<label><input type="radio" name="specType" value="optics"> optics</label>
+		</div>
+		<div class="input-row">
+			<input type="number" id="xInput" placeholder="(0-1000)" min="0" max="999">
+			<input type="number" id="yInput" placeholder="(0-1000)" min="0" max="999">
+			<button onclick="addPeak()">add</button>
+			<button onclick="submitData()">generate</button>
+		</div>
+		<textarea id="peakTextArea" placeholder="x-input y-input"></textarea>
+	</div>
+	<script src="script.js"></script>
+</body>
+</html>
