@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Data Compression">
+      <UniqueIdentifier>{cefbf0ba-57b0-44dd-9075-bfa6fa31c364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Compression\Base">
+      <UniqueIdentifier>{f3e59dfe-8f07-4109-a234-797ebd00df6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Compression\Concrete">
+      <UniqueIdentifier>{850be184-8d39-485e-b6ff-ab3be9dc434d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Header">
+      <UniqueIdentifier>{96e43bc0-398e-4929-9cad-133b7157923c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Compression\Concrete\Custom Format">
+      <UniqueIdentifier>{5deddd65-b09b-490a-823d-0914660bb0ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Header\Custom Format">
+      <UniqueIdentifier>{d6c13e93-b4c9-4d9f-a0a0-fe63cf8f4f88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Header\Standard Format">
+      <UniqueIdentifier>{4cb00965-6766-4e90-9e5f-a490dd797190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Compression\Concrete\Standard Format">
+      <UniqueIdentifier>{54c982ec-5fec-448b-b71d-04be2e834bd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Compression\Concrete\Custom Format\Dictionary Based">
+      <UniqueIdentifier>{d55b4b4d-d3c7-4cbd-a767-7d9164427dee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Compression\Concrete\Custom Format\Statistics Based">
+      <UniqueIdentifier>{2c2d7953-acdc-491e-9c8d-a39e8b883e17}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Header\Custom Format\Dictionary Based">
+      <UniqueIdentifier>{18645d4f-0c3c-4d32-9d75-316539e41848}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Header\Custom Format\Statistics Based">
+      <UniqueIdentifier>{c852ecbe-0aae-4200-80b1-7d93f2800ae1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\BMP.h">
+      <Filter>Data Compression\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderBMP.h">
+      <Filter>Data Header\Standard Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LZ77.h">
+      <Filter>Data Compression\Concrete\Custom Format\Dictionary Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LZ78.h">
+      <Filter>Data Compression\Concrete\Custom Format\Dictionary Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LZSS.h">
+      <Filter>Data Compression\Concrete\Custom Format\Dictionary Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\LZW.h">
+      <Filter>Data Compression\Concrete\Custom Format\Dictionary Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HUFF.h">
+      <Filter>Data Compression\Concrete\Custom Format\Statistics Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\RLE.h">
+      <Filter>Data Compression\Concrete\Custom Format\Statistics Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderLZ77.h">
+      <Filter>Data Header\Custom Format\Dictionary Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderLZ78.h">
+      <Filter>Data Header\Custom Format\Dictionary Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderLZSS.h">
+      <Filter>Data Header\Custom Format\Dictionary Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderLZW.h">
+      <Filter>Data Header\Custom Format\Dictionary Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderHUFF.h">
+      <Filter>Data Header\Custom Format\Statistics Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderRLE.h">
+      <Filter>Data Header\Custom Format\Statistics Based</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderPNG.h">
+      <Filter>Data Header\Standard Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\PNG.h">
+      <Filter>Data Compression\Concrete\Standard Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\WebP.h">
+      <Filter>Data Compression\Concrete\Standard Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderWebP.h">
+      <Filter>Data Header\Standard Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderGR.h">
+      <Filter>Data Header\Custom Format\Statistics Based</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\BMP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\RLE.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\HUFF.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LZ77.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LZ78.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LZW.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\LZSS.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\PNG.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\WebP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="include\GR.h">
+      <Filter>Data Compression\Concrete\Custom Format\Statistics Based</Filter>
+    </ClCompile>
+    <ClCompile Include="source\GR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
