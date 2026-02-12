@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Data Protocol">
+      <UniqueIdentifier>{f8b2b9a6-2cff-4b5e-9d95-118b347bece5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Protocol\Universal Asynchronous Receiver Transmitter">
+      <UniqueIdentifier>{d8f9b0f0-1cbb-405c-844f-679b91178ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Protocol\Universal Asynchronous Receiver Transmitter\Base">
+      <UniqueIdentifier>{0c610f31-db6e-45f8-bc51-cccf940e58c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Protocol\Universal Asynchronous Receiver Transmitter\Concrete">
+      <UniqueIdentifier>{a71569cc-b383-4865-b459-acb85223bddd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Predefined">
+      <UniqueIdentifier>{ac3383f6-432d-43ae-b937-d81ea9943f24}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\UART.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\ModbusRTU.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\UART.h">
+      <Filter>Data Protocol\Universal Asynchronous Receiver Transmitter\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Predefined.h">
+      <Filter>Data Predefined</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ModbusRTU.h">
+      <Filter>Data Protocol\Universal Asynchronous Receiver Transmitter\Concrete</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

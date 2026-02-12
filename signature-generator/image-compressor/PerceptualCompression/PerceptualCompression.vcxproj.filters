@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Data Compression">
+      <UniqueIdentifier>{38ed2daf-f3c8-4805-8ade-06ec57a1333b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Header">
+      <UniqueIdentifier>{afdc8bc5-a177-4d2c-9999-fc4420118cc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Header\Custom Format">
+      <UniqueIdentifier>{4a5acd7e-7a84-4185-8897-6fc93073cbbb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Header\Standard Format">
+      <UniqueIdentifier>{5ceb79c5-3332-43a3-a241-47eec01b70de}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Compression\Base">
+      <UniqueIdentifier>{46d0ebfa-9086-4c42-8fed-375c1d9272fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Compression\Concrete">
+      <UniqueIdentifier>{3e862691-0f08-4ae8-8cfd-b6a1414a1e89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Compression\Concrete\Standard Format">
+      <UniqueIdentifier>{2d929ed2-799c-4e4e-823a-c1a8f241b7d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data Compression\Concrete\Custom Format">
+      <UniqueIdentifier>{f85f3fe8-b4e8-4393-910d-018a2ab7e889}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\HeaderBMP.h">
+      <Filter>Data Header\Standard Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\BMP.h">
+      <Filter>Data Compression\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="include\YUV.h">
+      <Filter>Data Compression\Concrete\Custom Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderYUV.h">
+      <Filter>Data Header\Custom Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\DCT.h">
+      <Filter>Data Compression\Concrete\Custom Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderDCT.h">
+      <Filter>Data Header\Custom Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HAAR.h">
+      <Filter>Data Compression\Concrete\Custom Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderHAAR.h">
+      <Filter>Data Header\Custom Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\JPEG.h">
+      <Filter>Data Compression\Concrete\Standard Format</Filter>
+    </ClInclude>
+    <ClInclude Include="include\HeaderJPEG.h">
+      <Filter>Data Header\Standard Format</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="source\BMP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\YUV.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DCT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\HAAR.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\JPEG.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

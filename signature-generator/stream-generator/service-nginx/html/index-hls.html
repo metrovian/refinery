@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+        <meta charset="UTF-8"/>
+        <title>Stream Generator</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="style-hls.css"/>
+</head>
+<body>
+        <h1>Stream Generator</h1>
+        <div class="audio-container">
+                <audio
+                        id="audio-player"
+                        class="audio-player"
+                        controls
+                        preload="auto">
+                        <source src="/hls/stream.m3u8" type="application/x-mpegURL"/>
+                </audio>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/hls.js@1.4.0"></script>
+        <script src="script-hls.js"></script>
+</body>
+</html>
