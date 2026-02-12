@@ -1,0 +1,57 @@
+version: "3.9"
+
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    command:
+      - "--log.level=error"
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_LOG_LEVEL=error
+    depends_on:
+      - prometheus
+    volumes:
+      - ./grafana:/etc/grafana
+    ports:
+      - "3000:3000"
+
+  pendulum:
+    build:
+      context: .
+      dockerfile: dockerfile.pendulum
+    container_name: pendulum-service
+    depends_on:
+      - prometheus
+    ports:
+      - "50051:50051"
+
+  control:
+    build:
+      context: .
+      dockerfile: dockerfile.control
+    container_name: control-service
+    depends_on:
+      - prometheus
+      - pendulum
+
+  orch:
+    build:
+      context: .
+      dockerfile: dockerfile.orch
+    container_name: orch-service
+    depends_on:
+      - prometheus
+      - pendulum
+      - control
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/app/data

@@ -1,0 +1,7 @@
+global:
+  scrape_interval: 1s
+
+scrape_configs:
+  - job_name: "orch"
+    static_configs:
+      - targets: ["orch:8000"]
