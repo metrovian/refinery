@@ -17,10 +17,18 @@ export function renderHexUiPage(): string {
         <div class="row space">
           <h2>Input</h2>
           <div class="row">
-            <button class="chip" data-sample="can">CAN</button>
-            <button class="chip" data-sample="modbus">MODBUS</button>
-            <button class="chip" data-sample="raw">RAW</button>
+            <button class="chip" data-sample="can">CAN Sample</button>
+            <button class="chip" data-sample="modbus">MODBUS Sample</button>
+            <button class="chip" data-sample="raw">Raw Sample</button>
           </div>
+        </div>
+        <div class="row">
+          <label for="parser-type">Parser</label>
+          <select id="parser-type">
+            <option value="raw">Raw Bytes</option>
+            <option value="can">CAN Frame</option>
+            <option value="modbus">MODBUS RTU</option>
+          </select>
         </div>
         <textarea id="hex-input" spellcheck="false" placeholder="0A FF 1C"></textarea>
         <div class="row">
@@ -40,6 +48,7 @@ export function renderHexUiPage(): string {
             <article class="card"><p class="label">Length</p><p id="length" class="value">0</p></article>
             <article class="card"><p class="label">Bytes</p><pre id="bytes">[]</pre></article>
             <article class="card"><p class="label">Hex</p><pre id="hex">[]</pre></article>
+            <article class="card"><p class="label">Parsed</p><pre id="parsed">{}</pre></article>
           </div>
           <p id="error" class="error"></p>
         </section>

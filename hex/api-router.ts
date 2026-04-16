@@ -1,24 +1,32 @@
 import { Router } from "express";
-import { parseHex } from "./parser";
+import { listParsers, parserRegistry } from "./registry";
+import { ParseType } from "./types";
 
 type ParseBody = {
   input?: string;
+  type?: ParseType;
 };
 
 export const hexParserApiRouter = Router();
 
+hexParserApiRouter.get("/parsers", (_req, res) => {
+  return res.json({ parsers: listParsers() });
+});
+
 hexParserApiRouter.post("/parse", (req, res) => {
   const body = req.body as ParseBody;
   const input = body.input;
+  const type = body.type ?? "raw";
 
   if (typeof input !== "string") {
     return res.status(400).json({ error: "`input` must be a string." });
   }
 
-  try {
-    return res.json(parseHex(input));
-  } catch (error) {
-    const message = error instanceof Error ? error.message : "Unknown parse error";
-    return res.status(400).json({ error: message });
+  if (!(type in parserRegistry)) {
+    return res.status(400).json({ error: `Unsupported parser type: ${String(type)}` });
   }
+
+  const result = parserRegistry[type].parse(input);
+  if (!result.ok) return res.status(400).json(result);
+  return res.json(result);
 });

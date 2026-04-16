@@ -1,10 +1,11 @@
 const samples = {
   can: "18FEF100 01 0A FF 1C",
   modbus: "01 03 00 6B 00 03 76 87",
-  raw: "A55A01020408FFEE00112233445566778899AABBCCDDEEFF",
+  raw: "0A FF 1C",
 };
 
 const inputEl = document.getElementById("hex-input");
+const parserTypeEl = document.getElementById("parser-type");
 const parseBtn = document.getElementById("parse-btn");
 const clearBtn = document.getElementById("clear-btn");
 const tokensEl = document.getElementById("tokens");
@@ -12,6 +13,7 @@ const summaryEl = document.getElementById("summary");
 const lengthEl = document.getElementById("length");
 const bytesEl = document.getElementById("bytes");
 const hexEl = document.getElementById("hex");
+const parsedEl = document.getElementById("parsed");
 const errorEl = document.getElementById("error");
 
 const tokenize = (value) => value.trim().split(/[\s,;:-]+/).filter(Boolean);
@@ -49,6 +51,7 @@ function reset() {
   lengthEl.textContent = "0";
   bytesEl.textContent = "[]";
   hexEl.textContent = "[]";
+  parsedEl.textContent = "{}";
   errorEl.textContent = "";
 }
 
@@ -58,7 +61,7 @@ async function parse() {
     const response = await fetch("/api/hex/parse", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ input: inputEl.value }),
+      body: JSON.stringify({ input: inputEl.value, type: parserTypeEl.value }),
     });
     const data = await response.json();
     if (!response.ok) {
@@ -67,6 +70,7 @@ async function parse() {
     lengthEl.textContent = String(data.length ?? 0);
     bytesEl.textContent = JSON.stringify(data.bytes ?? [], null, 2);
     hexEl.textContent = JSON.stringify(data.hex ?? [], null, 2);
+    parsedEl.textContent = JSON.stringify(data.parsed ?? {}, null, 2);
   } catch (error) {
     reset();
     errorEl.textContent = String(error && error.message ? error.message : error);
@@ -75,7 +79,9 @@ async function parse() {
 
 document.querySelectorAll("[data-sample]").forEach((button) => {
   button.addEventListener("click", () => {
-    inputEl.value = samples[button.getAttribute("data-sample")] || "";
+    const key = button.getAttribute("data-sample");
+    parserTypeEl.value = key || "raw";
+    inputEl.value = samples[key] || "";
     renderValidation();
     parse();
   });
@@ -83,6 +89,7 @@ document.querySelectorAll("[data-sample]").forEach((button) => {
 
 parseBtn.addEventListener("click", parse);
 clearBtn.addEventListener("click", () => {
+  parserTypeEl.value = "raw";
   inputEl.value = "";
   tokensEl.innerHTML = "";
   summaryEl.textContent = "입력 대기 중";
