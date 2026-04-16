@@ -2,11 +2,11 @@
   "name": "refinery",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
+  "main": "dist/server/index.js",
   "scripts": {
-    "dev": "ts-node src/server.ts",
+    "dev": "ts-node server/index.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server/index.js"
   },
   "keywords": [],
   "author": "",
