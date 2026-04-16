@@ -1,0 +1,173 @@
+:root {
+  --bg: #f3f5f7;
+  --panel: #fff;
+  --text: #111827;
+  --muted: #6b7280;
+  --line: #d7dde5;
+  --accent: #0f766e;
+  --accent2: #115e59;
+  --bad: #b91c1c;
+  --goodBg: #dcfce7;
+  --badBg: #fee2e2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Noto Sans KR", sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top right, #dbeafe, transparent 45%), var(--bg);
+}
+
+.layout {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+  display: grid;
+  gap: 16px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.hero {
+  background: linear-gradient(120deg, #0f766e, #0ea5e9);
+  color: #f8fafc;
+  border: 0;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.space {
+  justify-content: space-between;
+  margin-top: 0;
+}
+
+.chip,
+.btn {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn {
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.btn:hover {
+  background: var(--accent2);
+}
+
+.btn-light {
+  background: #fff;
+  color: var(--text);
+  border-color: var(--line);
+}
+
+textarea {
+  width: 100%;
+  min-height: 140px;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  resize: vertical;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.muted {
+  color: var(--muted);
+  margin-top: 8px;
+}
+
+.token-list {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 32px;
+}
+
+.token {
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+}
+
+.ok {
+  background: var(--goodBg);
+}
+
+.bad {
+  background: var(--badBg);
+  color: var(--bad);
+}
+
+.cards {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.label {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.value {
+  margin-top: 4px;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+pre {
+  margin: 6px 0 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.error {
+  margin-top: 10px;
+  color: var(--bad);
+  min-height: 20px;
+}
+
+@media (min-width: 860px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
