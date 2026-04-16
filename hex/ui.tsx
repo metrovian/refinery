@@ -4,54 +4,48 @@ export function renderHexUiPage(): string {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hex Parser</title>
+    <title>Hex</title>
     <link rel="stylesheet" href="/hex/assets/styles.css" />
   </head>
   <body>
     <main class="layout">
-      <section class="panel hero">
-        <h1>Hex Parser Console</h1>
-        <p>CAN, MODBUS 프레임 입력을 빠르게 검증/파싱합니다.</p>
-      </section>
+      <header class="hero">
+        <h1>Hex Parser</h1>
+      </header>
       <section class="panel">
-        <div class="row space">
-          <h2>Input</h2>
-          <div class="row">
-            <button class="chip" data-sample="can">CAN Sample</button>
-            <button class="chip" data-sample="modbus">MODBUS Sample</button>
-            <button class="chip" data-sample="raw">Raw Sample</button>
-          </div>
-        </div>
-        <div class="row">
-          <label for="parser-type">Parser</label>
+        <div class="control-row">
           <select id="parser-type">
-            <option value="raw">Raw Bytes</option>
-            <option value="can">CAN Frame</option>
-            <option value="modbus">MODBUS RTU</option>
+            <option value="raw">raw bytes</option>
+            <option value="can">can frame</option>
+            <option value="modbus">modbus rtu</option>
           </select>
         </div>
         <textarea id="hex-input" spellcheck="false" placeholder="0A FF 1C"></textarea>
-        <div class="row">
-          <button id="parse-btn" class="btn">Parse</button>
-          <button id="clear-btn" class="btn btn-light">Clear</button>
-        </div>
       </section>
-      <section class="grid">
-        <section class="panel">
-          <h2>Validation</h2>
-          <p id="summary" class="muted">입력 대기 중</p>
-          <div id="tokens" class="token-list"></div>
-        </section>
-        <section class="panel">
-          <h2>Result</h2>
-          <div class="cards">
-            <article class="card"><p class="label">Length</p><p id="length" class="value">0</p></article>
-            <article class="card"><p class="label">Bytes</p><pre id="bytes">[]</pre></article>
-            <article class="card"><p class="label">Hex</p><pre id="hex">[]</pre></article>
-            <article class="card"><p class="label">Parsed</p><pre id="parsed">{}</pre></article>
+      <section class="panel">
+        <div class="result-grid">
+          <div class="result-item">
+            <p class="result-label">type</p>
+            <p id="result-type" class="result-value">-</p>
           </div>
-          <p id="error" class="error"></p>
-        </section>
+          <div class="result-item">
+            <p class="result-label">length</p>
+            <p id="result-length" class="result-value">0</p>
+          </div>
+          <div class="result-item result-item-wide">
+            <p class="result-label">bytes</p>
+            <pre id="result-bytes" class="result">[]</pre>
+          </div>
+          <div class="result-item result-item-wide">
+            <p class="result-label">hex</p>
+            <pre id="result-hex" class="result">[]</pre>
+          </div>
+          <div class="result-item result-item-wide">
+            <p class="result-label">parsed</p>
+            <pre id="result-parsed" class="result">{}</pre>
+          </div>
+        </div>
+        <p id="error" class="error"></p>
       </section>
     </main>
     <script src="/hex/assets/app.js" defer></script>
