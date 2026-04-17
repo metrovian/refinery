@@ -1,54 +1,11 @@
-:root {
-  --bg: #0a0d12;
-  --bg-soft: #121720;
-  --panel: #11161f;
-  --text: #e5e7eb;
-  --line: #252b37;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html,
-body {
-  min-height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: "Segoe UI", "Noto Sans KR", sans-serif;
-  color: var(--text);
-  min-height: 100vh;
-  background-color: var(--bg);
-  background-image: radial-gradient(circle at top center, #1c2431 0%, var(--bg-soft) 45%, var(--bg) 100%);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-}
-
-.layout {
-  max-width: 760px;
-  margin: 0 auto;
-  padding: 32px 16px 48px;
-  display: grid;
-  gap: 14px;
-}
-
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 16px;
-}
-
-.input-box {
+.hex-panel .input-box {
   border: 1px solid var(--line);
   border-radius: 10px;
   background: #0f141d;
   padding: 10px 12px;
 }
 
-.control-row {
+.hex-panel .control-row {
   display: flex;
   width: 165px;
   gap: 10px;
@@ -58,8 +15,8 @@ body {
   flex-wrap: wrap;
 }
 
-select,
-textarea {
+.hex-panel select,
+.hex-panel textarea {
   width: 100%;
   border: 0;
   border-radius: 0;
@@ -67,7 +24,7 @@ textarea {
   color: var(--text);
 }
 
-select {
+.hex-panel select {
   width: 220px;
   background-color: #0f141d;
   color: var(--text);
@@ -75,12 +32,12 @@ select {
   text-transform: uppercase;
 }
 
-option {
+.hex-panel option {
   background-color: #0f141d;
   color: var(--text);
 }
 
-textarea {
+.hex-panel textarea {
   min-height: 150px;
   margin-top: 8px;
   padding: 8px 0 0;
@@ -90,7 +47,7 @@ textarea {
   border-top: 1px solid var(--line);
 }
 
-.parsed-output {
+.hex-panel .parsed-output {
   min-height: 75px;
   margin: 8px 0 8px;
   padding: 8px 4px;
@@ -101,7 +58,7 @@ textarea {
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
-.raw-input {
+.hex-panel .raw-input {
   min-height: 120px;
   margin-top: 12px;
   padding: 12px 16px;
@@ -116,7 +73,7 @@ textarea {
 }
 
 @media (max-width: 560px) {
-  select {
+  .hex-panel select {
     width: 100%;
   }
 }

@@ -7,13 +7,13 @@ type ParseBody = {
   type?: ParseType;
 };
 
-export const hexParserApiRouter = Router();
+export const hexRouter = Router();
 
-hexParserApiRouter.get("/parsers", (_req, res) => {
+hexRouter.get("/parsers", (_req, res) => {
   return res.json({ parsers: listParsers() });
 });
 
-hexParserApiRouter.post("/parser", (req, res) => {
+hexRouter.post("/parser", (req, res) => {
   const body = req.body as ParseBody;
   const input = body.input;
   const type = body.type ?? "modbus-rtu";
