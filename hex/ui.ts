@@ -4,14 +4,10 @@ export function renderHexUiPage(): string {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Hex</title>
     <link rel="stylesheet" href="/hex/assets/styles.css" />
   </head>
   <body>
     <main class="layout">
-      <header class="hero">
-        <h1>Hex Parser</h1>
-      </header>
       <section class="panel">
         <div class="input-box">
           <div class="control-row">
@@ -21,9 +17,9 @@ export function renderHexUiPage(): string {
               <!-- [PARSER:UI_OPTION] -->
             </select>
           </div>
-          <pre id="result-output" class="result-like-input">-</pre>
+          <pre id="result-output" class="parsed-output">-</pre>
         </div>
-        <textarea id="hex-input" class="input-like-result" spellcheck="false" placeholder="0A FF 1C"></textarea>
+        <textarea id="hex-input" class="raw-input" spellcheck="false" placeholder="0A FF 1C"></textarea>
       </section>
     </main>
     <script src="/hex/assets/app.js" defer></script>
