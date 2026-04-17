@@ -1,4 +1,7 @@
-export type ParseType = "can";
+export type ParseType =
+  | "can"
+  // [PARSER:PARSE_TYPE]
+  ;
 
 export type ParseSuccess = {
   ok: true;

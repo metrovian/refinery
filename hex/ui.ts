@@ -17,6 +17,7 @@ export function renderHexUiPage(): string {
           <div class="control-row">
             <select id="parser-type">
               <option value="can">CAN</option>
+              <!-- [PARSER:UI_OPTION] -->
             </select>
           </div>
           <pre id="result-output" class="result-like-input">-</pre>
