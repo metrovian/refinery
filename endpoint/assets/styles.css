@@ -1,0 +1,239 @@
+:root {
+  --bg: #0a0d12;
+  --bg-soft: #121720;
+  --panel: #11161f;
+  --text: #e5e7eb;
+  --line: #252b37;
+  --accent: #8fb7ff;
+  --muted: #9ba7bb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Noto Sans KR", sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  background-color: var(--bg);
+  background-image: radial-gradient(circle at top center, #1c2431 0%, var(--bg-soft) 45%, var(--bg) 100%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.layout {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 32px 16px 48px;
+  display: grid;
+  gap: 14px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.input-box {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0f141d;
+  padding: 10px 12px;
+}
+
+.control-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 0;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.select-wrap {
+  min-width: 160px;
+}
+
+.action-row {
+  display: flex;
+  margin-left: auto;
+  gap: 10px;
+  align-items: center;
+}
+
+textarea,
+button,
+input {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+}
+
+#driver-type {
+  width: 220px;
+  border: 0;
+  outline: 0;
+  background-color: #0f141d;
+  color: var(--text);
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+option {
+  background-color: #0f141d;
+  color: var(--text);
+}
+
+.setting-field select,
+input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0f141d;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.setting-field select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+.action-button {
+  min-width: 72px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.action-button.secondary {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.parsed-output {
+  min-height: 75px;
+  margin: 12px 0 0;
+  padding: 12px 4px 4px;
+  border-top: 1px solid var(--line);
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.raw-input {
+  width: 100%;
+  min-height: 120px;
+  margin-top: 14px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0f141d;
+  color: var(--text);
+  font-size: 13px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  resize: vertical;
+}
+
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  padding: 0;
+}
+
+.settings-inline {
+  margin-top: 12px;
+  padding-top: 12px;
+  padding-left: 5px;
+  border-top: 1px solid var(--line);
+}
+
+.setting-field {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  align-items: center;
+}
+
+.setting-value-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.setting-field-actions .action-row {
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.setting-field[hidden] {
+  display: none;
+}
+
+.setting-label {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+  line-height: 1;
+  letter-spacing: 0.04em;
+}
+
+.setting-field input,
+.setting-field select {
+  min-width: 0;
+  width: 180px;
+  max-width: 100%;
+  height: 34px;
+  padding: 6px 10px;
+  font-size: 13px;
+  background: rgba(255, 255, 255, 0.03);
+  text-align: left;
+  justify-self: start;
+}
+
+@media (max-width: 560px) {
+  #driver-type {
+    width: 100%;
+  }
+
+  .select-wrap {
+    width: 100%;
+  }
+
+  .action-button {
+    flex: 1 1 0;
+  }
+
+  .action-row {
+    margin-left: 0;
+  }
+
+  .setting-field {
+    grid-template-columns: 92px minmax(0, 1fr);
+  }
+
+  .setting-field input,
+  .setting-field select {
+    width: 100%;
+  }
+}
