@@ -33,6 +33,14 @@ function formatParsedValue(value) {
   return formatPrimitive(value);
 }
 
+function formatParsedKey(key) {
+  return String(key)
+    .trim()
+    .replace(/([a-z0-9])([A-Z])/g, "$1-$2")
+    .replace(/[_\s]+/g, "-")
+    .toLowerCase();
+}
+
 function renderParsed(parsed) {
   if (parsed === null || parsed === undefined) {
     resultOutputEl.textContent = String(parsed);
@@ -51,7 +59,7 @@ function renderParsed(parsed) {
   }
 
   resultOutputEl.textContent = entries
-    .map(([key, value]) => `${key}: ${formatParsedValue(value)}`)
+    .map(([key, value]) => `${formatParsedKey(key)}: ${formatParsedValue(value)}`)
     .join("\n");
 }
 
