@@ -1,52 +1,8 @@
-.endpoint-panel .input-box {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #0f141d;
-  padding: 10px 12px;
-}
-
-.endpoint-panel .control-row {
-  display: flex;
-  gap: 10px;
-  margin-top: 0;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-
-.endpoint-panel .select-wrap {
-  min-width: 160px;
-}
-
 .endpoint-panel .action-row {
   display: flex;
   margin-left: auto;
   gap: 10px;
   align-items: center;
-}
-
-.endpoint-panel textarea,
-.endpoint-panel button,
-.endpoint-panel input {
-  border: 0;
-  border-radius: 0;
-  background: transparent;
-  color: var(--text);
-}
-
-.endpoint-panel #endpoint-driver-type {
-  width: 220px;
-  border: 0;
-  outline: 0;
-  background-color: #0f141d;
-  color: var(--text);
-  font-size: 14px;
-  text-transform: uppercase;
-}
-
-.endpoint-panel option {
-  background-color: #0f141d;
-  color: var(--text);
 }
 
 .endpoint-panel .setting-field select,
@@ -64,6 +20,24 @@
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+  outline: none;
+  box-shadow: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%239ba7bb' d='M0 0h10L5 6z'/%3E%3C/svg%3E");
+  background-position: calc(100% - 10px) 50%;
+  background-size: 10px 6px;
+  background-repeat: no-repeat;
+  padding-right: 24px;
+  border-right: 1px solid var(--line);
+}
+
+.endpoint-panel .setting-field select::-ms-expand {
+  display: none;
+}
+
+.endpoint-panel .setting-field select:focus {
+  outline: none;
+  box-shadow: none;
+  border-color: var(--line);
 }
 
 .endpoint-panel .action-button {
@@ -84,8 +58,8 @@
 
 .endpoint-panel .parsed-output {
   min-height: 75px;
-  margin: 12px 0 0;
-  padding: 12px 4px 4px;
+  margin: 8px 0 8px;
+  padding: 8px 4px;
   border-top: 1px solid var(--line);
   white-space: pre-wrap;
   word-break: break-word;
@@ -96,9 +70,10 @@
 .endpoint-panel .raw-input {
   width: 100%;
   min-height: 120px;
-  margin-top: 14px;
+  margin-top: 12px;
   padding: 12px 16px;
   border: 1px solid var(--line);
+  border-top: 1px solid var(--line);
   border-radius: 10px;
   background: #0f141d;
   color: var(--text);
@@ -117,8 +92,8 @@
 }
 
 .endpoint-panel .settings-inline {
-  margin-top: 12px;
-  padding-top: 12px;
+  margin-top: 8px;
+  padding-top: 8px;
   padding-left: 5px;
   border-top: 1px solid var(--line);
 }
@@ -167,14 +142,6 @@
 }
 
 @media (max-width: 560px) {
-  .endpoint-panel #endpoint-driver-type {
-    width: 100%;
-  }
-
-  .endpoint-panel .select-wrap {
-    width: 100%;
-  }
-
   .endpoint-panel .action-button {
     flex: 1 1 0;
   }

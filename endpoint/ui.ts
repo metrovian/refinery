@@ -3,7 +3,7 @@ export function renderEndpointPanel(): string {
     <div class="input-box">
       <div class="control-row">
         <div class="select-wrap">
-          <select id="endpoint-driver-type">
+          <select id="endpoint-driver-type" class="top-select">
             <option value="uart">uart</option>
             <option value="spi">spi</option>
             <option value="i2c">i2c</option>

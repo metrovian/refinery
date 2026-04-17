@@ -10,6 +10,7 @@ export function createApp() {
 
   app.use("/api/endpoint", endpointRouter);
   app.use("/api/hex", hexRouter);
+  app.use("/shared/assets", express.static(path.join(process.cwd(), "shared", "assets")));
   app.use("/endpoint/assets", express.static(path.join(process.cwd(), "endpoint", "assets")));
   app.use("/hex/assets", express.static(path.join(process.cwd(), "hex", "assets")));
 

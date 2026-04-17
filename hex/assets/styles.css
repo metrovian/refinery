@@ -1,39 +1,9 @@
-.hex-panel .input-box {
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: #0f141d;
-  padding: 10px 12px;
-}
-
-.hex-panel .control-row {
-  display: flex;
-  width: 165px;
-  gap: 10px;
-  margin-top: 0;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-}
-
 .hex-panel select,
 .hex-panel textarea {
   width: 100%;
   border: 0;
   border-radius: 0;
   background: transparent;
-  color: var(--text);
-}
-
-.hex-panel select {
-  width: 220px;
-  background-color: #0f141d;
-  color: var(--text);
-  font-size: 14px;
-  text-transform: uppercase;
-}
-
-.hex-panel option {
-  background-color: #0f141d;
   color: var(--text);
 }
 
@@ -68,12 +38,7 @@
   background: #0f141d;
   color: var(--text);
   font-size: 13px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   white-space: pre-wrap;
   word-break: break-word;
-}
-
-@media (max-width: 560px) {
-  .hex-panel select {
-    width: 100%;
-  }
 }

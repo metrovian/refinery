@@ -1,0 +1,96 @@
+:root {
+  --bg: #0a0d12;
+  --panel: #11161f;
+  --text: #e5e7eb;
+  --line: #252b37;
+  --muted: #9ba7bb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", "Noto Sans KR", sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  background-color: var(--bg);
+}
+
+.page-shell {
+  margin: 0 auto;
+  padding: 32px 32px 48px;
+}
+
+.page-stack {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+}
+
+.page-panel {
+  flex: 0 0 500px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 16px;
+}
+
+.page-panel .input-box {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0f141d;
+  padding: 10px 12px;
+}
+
+.page-panel .control-row {
+  display: flex;
+  gap: 10px;
+  margin-top: 0;
+  align-items: center;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.page-panel .select-wrap {
+  width: 220px;
+  min-width: 0;
+}
+
+.page-panel textarea,
+.page-panel select,
+.page-panel button,
+.page-panel input {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+}
+
+.page-panel .top-select {
+  width: 220px;
+  border: 0;
+  outline: 0;
+  background-color: #0f141d;
+  color: var(--text);
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+.page-panel option {
+  background-color: #0f141d;
+  color: var(--text);
+}
+
+@media (max-width: 560px) {
+  .page-panel .select-wrap,
+  .page-panel .top-select {
+    width: 100%;
+  }
+}
