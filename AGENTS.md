@@ -69,9 +69,4 @@
 - `- AGENTS.md 파일 업로드`
 
 ## 검증 기준
-- 최소 검증: `npm run build` 성공
-- 동작 확인:
-  - `GET /api/endpoint/health`
-  - `GET /api/hex/parsers`
-  - `POST /api/hex/parse` with `{ "type": "can", "input": "18FEF100 01 0A FF 1C" }`
-  - `GET /hex` UI 정상 렌더링
+- 필수 검증: `npm run build` 성공
