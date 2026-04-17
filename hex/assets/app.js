@@ -61,7 +61,7 @@ function reset() {
 
 async function parse() {
   try {
-    const response = await fetch("/api/hex/parse", {
+    const response = await fetch("/api/hex/parser", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ input: inputEl.value, type: parserTypeEl.value }),

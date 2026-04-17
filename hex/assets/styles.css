@@ -74,9 +74,15 @@ textarea {
 
 select {
   width: 220px;
-  padding: 2px 0 8px;
+  background-color: #0f141d;
+  color: var(--text);
   font-size: 14px;
   text-transform: uppercase;
+}
+
+option {
+  background-color: #0f141d;
+  color: var(--text);
 }
 
 textarea {

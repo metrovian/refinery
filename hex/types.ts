@@ -22,8 +22,5 @@ export type ParseFailure = {
 export type ParseResult = ParseSuccess | ParseFailure;
 
 export type Parser = {
-  type: ParseType;
-  title: string;
-  description: string;
   parse: (input: string) => ParseResult;
 };

@@ -13,7 +13,7 @@ hexParserApiRouter.get("/parsers", (_req, res) => {
   return res.json({ parsers: listParsers() });
 });
 
-hexParserApiRouter.post("/parse", (req, res) => {
+hexParserApiRouter.post("/parser", (req, res) => {
   const body = req.body as ParseBody;
   const input = body.input;
   const type = body.type ?? "can";

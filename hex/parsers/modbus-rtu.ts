@@ -188,7 +188,7 @@ export function parseModbus(input: string): ParseResult {
     const crcCalculated = modbusCrc16(bytes.slice(0, -2));
 
     const parsed: Record<string, unknown> = {
-      mode: "modbus-rtu",
+      parser: "modbus-rtu",
       slaveAddress: toHexByte(slaveAddress),
       functionCode: toHexByte(functionCodeRaw),
       functionName: functionName(baseFunctionCode),

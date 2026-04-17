@@ -14,11 +14,11 @@ function usage() {
   console.log(
     [
       "Usage:",
-      "  node hex/scripts/add-parser.js <type> [title] [description]",
+      "  node hex/scripts/add-parser.js <type>",
       "",
       "Examples:",
       "  node hex/scripts/add-parser.js modbus",
-      '  node hex/scripts/add-parser.js nmea "NMEA Sentence" "NMEA 0183 parser"',
+      "  node hex/scripts/add-parser.js modbus-rtu",
       "",
       "Rules:",
       "  - <type> must match /^[a-z][a-z0-9-]*$/",
@@ -38,14 +38,6 @@ function toPascalCase(value) {
     .filter(Boolean)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join("");
-}
-
-function toTitle(type) {
-  return type
-    .split(/[-_]/g)
-    .filter(Boolean)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join(" ");
 }
 
 function readFile(filePath) {
@@ -99,7 +91,7 @@ export function ${parseFnName}(input: string): ParseResult {
       hex: bytes.map(toHexByte),
       length: bytes.length,
       parsed: {
-        mode: "${type}",
+        parser: "${type}",
         data: bytes.map(toHexByte),
       },
     };
@@ -112,7 +104,7 @@ export function ${parseFnName}(input: string): ParseResult {
 }
 
 function main() {
-  const [, , rawType, rawTitle, rawDescription] = process.argv;
+  const [, , rawType] = process.argv;
   if (!rawType || rawType === "--help" || rawType === "-h") {
     usage();
     process.exit(rawType ? 0 : 1);
@@ -123,8 +115,7 @@ function main() {
   }
 
   const type = rawType;
-  const title = rawTitle || toTitle(type);
-  const description = rawDescription || `${title} parser`;
+  const optionLabel = type.toUpperCase();
   const parseFnName = `parse${toPascalCase(type)}`;
 
   const hexDir = path.resolve(__dirname, "..");
@@ -166,9 +157,6 @@ function main() {
   );
   const registryEntryLines = [
     `${JSON.stringify(type)}: {`,
-    `  type: ${JSON.stringify(type)},`,
-    `  title: ${JSON.stringify(title)},`,
-    `  description: ${JSON.stringify(description)},`,
     `  parse: ${parseFnName},`,
     "},",
   ];
@@ -182,7 +170,7 @@ function main() {
   const nextUi = insertBeforeMarkerLine(
     uiContent,
     MARKERS.uiOption,
-    [`<option value="${type}">${title}</option>`]
+    [`<option value="${type}">${optionLabel}</option>`]
   );
   writeFile(uiFile, nextUi);
 
