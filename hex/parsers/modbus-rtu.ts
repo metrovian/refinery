@@ -31,28 +31,28 @@ function functionName(functionCode: number): string {
   let name: string;
   switch (baseCode) {
     case 0x01:
-      name = "read coils";
+      name = "read-coils";
       break;
     case 0x02:
-      name = "read discrete inputs";
+      name = "read-discrete-inputs";
       break;
     case 0x03:
-      name = "read holding registers";
+      name = "read-holding-registers";
       break;
     case 0x04:
-      name = "read input registers";
+      name = "read-input-registers";
       break;
     case 0x05:
-      name = "write single coil";
+      name = "write-single-coil";
       break;
     case 0x06:
-      name = "write single register";
+      name = "write-single-register";
       break;
     case 0x0f:
-      name = "write multiple coils";
+      name = "write-multiple-coils";
       break;
     case 0x10:
-      name = "write multiple registers";
+      name = "write-multiple-registers";
       break;
     default:
       name = "unknown";
