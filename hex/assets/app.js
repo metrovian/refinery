@@ -1,19 +1,63 @@
 const inputEl = document.getElementById("hex-input");
 const parserTypeEl = document.getElementById("parser-type");
-const resultTypeEl = document.getElementById("result-type");
-const resultLengthEl = document.getElementById("result-length");
-const resultBytesEl = document.getElementById("result-bytes");
-const resultHexEl = document.getElementById("result-hex");
-const resultParsedEl = document.getElementById("result-parsed");
+const resultOutputEl = document.getElementById("result-output");
 const errorEl = document.getElementById("error");
 let parseTimer = null;
 
+function formatPrimitive(value) {
+  if (typeof value === "number") {
+    return String(value);
+  }
+  if (typeof value === "boolean") return value ? "true" : "false";
+  if (value === null) return "null";
+  if (value === undefined) return "undefined";
+  return String(value);
+}
+
+function formatArray(values) {
+  if (values.length === 0) return "[]";
+  if (values.every((v) => typeof v === "number")) {
+    return values
+      .map((v) => `0x${Number(v).toString(16).toUpperCase().padStart(2, "0")}`)
+      .join(" ");
+  }
+  return values.map(formatPrimitive).join(", ");
+}
+
+function formatParsedValue(value) {
+  if (Array.isArray(value)) {
+    return formatArray(value);
+  }
+  if (value && typeof value === "object") {
+    return JSON.stringify(value);
+  }
+  return formatPrimitive(value);
+}
+
+function renderParsed(parsed) {
+  if (parsed === null || parsed === undefined) {
+    resultOutputEl.textContent = String(parsed);
+    return;
+  }
+
+  if (!parsed || typeof parsed !== "object") {
+    resultOutputEl.textContent = formatPrimitive(parsed);
+    return;
+  }
+
+  const entries = Object.entries(parsed);
+  if (entries.length === 0) {
+    resultOutputEl.textContent = "{}";
+    return;
+  }
+
+  resultOutputEl.textContent = entries
+    .map(([key, value]) => `${key}: ${formatParsedValue(value)}`)
+    .join("\n");
+}
+
 function reset() {
-  resultTypeEl.textContent = "-";
-  resultLengthEl.textContent = "0";
-  resultBytesEl.textContent = "[]";
-  resultHexEl.textContent = "[]";
-  resultParsedEl.textContent = "{}";
+  renderParsed({});
   errorEl.textContent = "";
 }
 
@@ -29,11 +73,7 @@ async function parse() {
     if (!response.ok) {
       throw new Error(data.error || "Parse failed");
     }
-    resultTypeEl.textContent = String(data.type || "-");
-    resultLengthEl.textContent = String(data.length ?? 0);
-    resultBytesEl.textContent = JSON.stringify(data.bytes ?? [], null, 2);
-    resultHexEl.textContent = JSON.stringify(data.hex ?? [], null, 2);
-    resultParsedEl.textContent = JSON.stringify(data.parsed ?? {}, null, 2);
+    renderParsed(data.parsed);
   } catch (error) {
     reset();
     errorEl.textContent = String(error && error.message ? error.message : error);

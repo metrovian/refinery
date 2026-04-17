@@ -1,4 +1,4 @@
-export type ParseType = "raw" | "can" | "modbus";
+export type ParseType = "can";
 
 export type ParseSuccess = {
   ok: true;
