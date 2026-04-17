@@ -115,10 +115,3 @@ body {
   word-break: break-word;
   resize: vertical;
 }
-
-@media (max-width: 560px) {
-  .page-panel .select-wrap,
-  .page-panel .top-select {
-    width: 100%;
-  }
-}
