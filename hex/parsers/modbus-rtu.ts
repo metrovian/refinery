@@ -184,11 +184,11 @@ function decodePdu(functionCode: number, payload: number[]): Record<string, unkn
   }
 }
 
-export function parseModbus(input: string): ParseResult {
+export function parseModbusRtu(input: string): ParseResult {
   try {
     const bytes = parseBytes(input);
     if (bytes.length < 4) {
-      throw new Error("MODBUS RTU frame must include address, function, and CRC(2 bytes).");
+      throw new Error("MODBUS-RTU frame must include address, function, and CRC(2 bytes).");
     }
 
     const slaveAddress = bytes[0];
