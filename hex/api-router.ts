@@ -16,7 +16,7 @@ hexParserApiRouter.get("/parsers", (_req, res) => {
 hexParserApiRouter.post("/parser", (req, res) => {
   const body = req.body as ParseBody;
   const input = body.input;
-  const type = body.type ?? "can";
+  const type = body.type ?? "modbus-rtu";
 
   if (typeof input !== "string") {
     return res.status(400).json({ error: "`input` must be a string." });
