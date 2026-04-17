@@ -7,9 +7,8 @@ export function renderUiPage(): string {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/shared/assets/styles.css" />
+    <link rel="stylesheet" href="/server/assets/styles.css" />
     <link rel="stylesheet" href="/endpoint/assets/styles.css" />
-    <link rel="stylesheet" href="/hex/assets/styles.css" />
   </head>
   <body>
     <main class="page-shell">

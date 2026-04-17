@@ -56,34 +56,6 @@
   background: rgba(255, 255, 255, 0.03);
 }
 
-.endpoint-panel .parsed-output {
-  min-height: 75px;
-  margin: 8px 0 8px;
-  padding: 8px 4px;
-  border-top: 1px solid var(--line);
-  white-space: pre-wrap;
-  word-break: break-word;
-  font-size: 14px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-}
-
-.endpoint-panel .raw-input {
-  width: 100%;
-  min-height: 120px;
-  margin-top: 12px;
-  padding: 12px 16px;
-  border: 1px solid var(--line);
-  border-top: 1px solid var(--line);
-  border-radius: 10px;
-  background: #0f141d;
-  color: var(--text);
-  font-size: 13px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  white-space: pre-wrap;
-  word-break: break-word;
-  resize: vertical;
-}
-
 .endpoint-panel .settings-grid {
   display: grid;
   grid-template-columns: 1fr;
