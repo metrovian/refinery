@@ -1,7 +1,6 @@
 const inputEl = document.getElementById("hex-input");
 const parserTypeEl = document.getElementById("parser-type");
 const resultOutputEl = document.getElementById("result-output");
-const errorEl = document.getElementById("error");
 let parseTimer = null;
 
 function formatPrimitive(value) {
@@ -58,11 +57,9 @@ function renderParsed(parsed) {
 
 function reset() {
   renderParsed({});
-  errorEl.textContent = "";
 }
 
 async function parse() {
-  errorEl.textContent = "";
   try {
     const response = await fetch("/api/hex/parse", {
       method: "POST",
@@ -75,8 +72,7 @@ async function parse() {
     }
     renderParsed(data.parsed);
   } catch (error) {
-    reset();
-    errorEl.textContent = String(error && error.message ? error.message : error);
+    resultOutputEl.textContent = String(error && error.message ? error.message : error);
   }
 }
 

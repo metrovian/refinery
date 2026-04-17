@@ -19,10 +19,9 @@ export function renderHexUiPage(): string {
               <option value="can">CAN</option>
             </select>
           </div>
-          <textarea id="hex-input" spellcheck="false" placeholder="0A FF 1C"></textarea>
+          <pre id="result-output" class="result-like-input">-</pre>
         </div>
-        <pre id="result-output" class="parsed-box">-</pre>
-        <p id="error" class="error"></p>
+        <textarea id="hex-input" class="input-like-result" spellcheck="false" placeholder="0A FF 1C"></textarea>
       </section>
     </main>
     <script src="/hex/assets/app.js" defer></script>
