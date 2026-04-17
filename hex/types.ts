@@ -1,5 +1,6 @@
 export type ParseType =
   | "can"
+  | "modbus-rtu"
   // [PARSER:PARSE_TYPE]
   ;
 

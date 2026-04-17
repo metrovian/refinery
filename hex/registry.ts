@@ -1,4 +1,5 @@
 import { parseCan } from "./parsers/can";
+import { parseModbus } from "./parsers/modbus-rtu";
 // [PARSER:REGISTRY_IMPORT]
 import { ParseType, Parser } from "./types";
 
@@ -8,6 +9,12 @@ export const parserRegistry: Record<ParseType, Parser> = {
     title: "CAN Frame",
     description: "ID + up to 8 data bytes. Example: 18FEF100 01 0A FF 1C",
     parse: parseCan,
+  },
+  "modbus-rtu": {
+    type: "modbus-rtu",
+    title: "Modbus RTU",
+    description: "Modbus RTU frame parser",
+    parse: parseModbus,
   },
   // [PARSER:REGISTRY_ENTRY]
 };
