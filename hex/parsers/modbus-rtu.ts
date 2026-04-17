@@ -25,26 +25,39 @@ function toHexWord(value: number): string {
 }
 
 function functionName(functionCode: number): string {
-  switch (functionCode) {
+  const isException = (functionCode & 0x80) !== 0;
+  const baseCode = functionCode & 0x7f;
+
+  let name: string;
+  switch (baseCode) {
     case 0x01:
-      return "Read Coils";
+      name = "read coils";
+      break;
     case 0x02:
-      return "Read Discrete Inputs";
+      name = "read discrete inputs";
+      break;
     case 0x03:
-      return "Read Holding Registers";
+      name = "read holding registers";
+      break;
     case 0x04:
-      return "Read Input Registers";
+      name = "read input registers";
+      break;
     case 0x05:
-      return "Write Single Coil";
+      name = "write single coil";
+      break;
     case 0x06:
-      return "Write Single Register";
+      name = "write single register";
+      break;
     case 0x0f:
-      return "Write Multiple Coils";
+      name = "write multiple coils";
+      break;
     case 0x10:
-      return "Write Multiple Registers";
+      name = "write multiple registers";
+      break;
     default:
-      return "Unknown";
+      name = "unknown";
   }
+  return isException ? `${name} (exception)` : name;
 }
 
 function decodePdu(functionCode: number, payload: number[]): Record<string, unknown> {
