@@ -1,5 +1,6 @@
 export type ParseType =
   | "modbus-rtu"
+  | "midi"
   // [PARSER:PARSE_TYPE]
   ;
 
