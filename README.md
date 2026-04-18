@@ -1,5 +1,5 @@
 ## REFINERY
 - Receive endpoints for communications
 - Hex parsers
-- Events archive
+- Etude archives
 <br></br>
