@@ -2,11 +2,15 @@
   const inputEl = document.getElementById("endpoint-hex-input");
   const driverTypeEl = document.getElementById("endpoint-driver-type");
   const resultOutputEl = document.getElementById("endpoint-result-output");
-  const clearButtonEl = document.getElementById("endpoint-clear-button");
-  const sendButtonEl = document.getElementById("endpoint-send-button");
-  const clearMirrorEls = Array.from(document.querySelectorAll('[data-role="endpoint-clear-mirror"]'));
-  const sendMirrorEls = Array.from(document.querySelectorAll('[data-role="endpoint-send-mirror"]'));
   const settingFieldEls = Array.from(document.querySelectorAll(".endpoint-panel [data-driver]"));
+  const clearButtonEls = [
+    document.getElementById("endpoint-clear-button"),
+    ...document.querySelectorAll('[data-role="endpoint-clear-mirror"]'),
+  ].filter(Boolean);
+  const sendButtonEls = [
+    document.getElementById("endpoint-send-button"),
+    ...document.querySelectorAll('[data-role="endpoint-send-mirror"]'),
+  ].filter(Boolean);
 
   function updateDriverVisibility() {
     const currentDriver = driverTypeEl.value;
@@ -32,12 +36,10 @@
     updateDriverVisibility();
   });
 
-  clearButtonEl.addEventListener("click", reset);
-  sendButtonEl.addEventListener("click", renderPendingMessage);
-  clearMirrorEls.forEach((buttonEl) => {
+  clearButtonEls.forEach((buttonEl) => {
     buttonEl.addEventListener("click", reset);
   });
-  sendMirrorEls.forEach((buttonEl) => {
+  sendButtonEls.forEach((buttonEl) => {
     buttonEl.addEventListener("click", renderPendingMessage);
   });
 

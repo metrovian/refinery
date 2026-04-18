@@ -68,17 +68,22 @@
     renderParsed({});
   }
 
+  async function requestParse() {
+    const response = await fetch("/api/hex/parser", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ input: inputEl.value, type: parserTypeEl.value }),
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      throw new Error(data.error || "Parse failed");
+    }
+    return data;
+  }
+
   async function parse() {
     try {
-      const response = await fetch("/api/hex/parser", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ input: inputEl.value, type: parserTypeEl.value }),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        throw new Error(data.error || "Parse failed");
-      }
+      const data = await requestParse();
       renderParsed(data.parsed);
     } catch (error) {
       resultOutputEl.textContent = String(error && error.message ? error.message : error);
@@ -92,7 +97,9 @@
     parseTimer = setTimeout(parse, 120);
   }
 
-  inputEl.addEventListener("input", scheduleParse);
+  ["input", "change"].forEach((eventName) => {
+    inputEl.addEventListener(eventName, scheduleParse);
+  });
   parserTypeEl.addEventListener("change", scheduleParse);
   reset();
   parse();

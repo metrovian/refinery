@@ -1,99 +1,183 @@
+type DriverType = "uart" | "spi" | "i2c";
+
+type OptionSpec = {
+  value: string;
+  label: string;
+};
+
+type BaseFieldSpec = {
+  key: string;
+  label: string;
+};
+
+type InputFieldSpec = BaseFieldSpec & {
+  control: "input";
+  inputType: "number" | "text";
+  value: string;
+};
+
+type SelectFieldSpec = BaseFieldSpec & {
+  control: "select";
+  options: OptionSpec[];
+};
+
+type ActionFieldSpec = BaseFieldSpec & {
+  control: "actions";
+  inputType: "number" | "text";
+  value: string;
+};
+
+type FieldSpec = InputFieldSpec | SelectFieldSpec | ActionFieldSpec;
+
+type DriverSection = {
+  type: DriverType;
+  fields: FieldSpec[];
+};
+
+const driverSections: DriverSection[] = [
+  {
+    type: "uart",
+    fields: [
+      { key: "baud-rate", label: "BAUD RATE", control: "input", inputType: "number", value: "115200" },
+      {
+        key: "data-bits",
+        label: "DATA BITS",
+        control: "select",
+        options: [
+          { value: "8", label: "8" },
+          { value: "7", label: "7" },
+        ],
+      },
+      {
+        key: "parity",
+        label: "PARITY",
+        control: "select",
+        options: [
+          { value: "none", label: "none" },
+          { value: "even", label: "even" },
+          { value: "odd", label: "odd" },
+        ],
+      },
+      {
+        key: "stop-bits",
+        label: "STOP BITS",
+        control: "select",
+        options: [
+          { value: "1", label: "1" },
+          { value: "2", label: "2" },
+        ],
+      },
+      { key: "timeout", label: "TIMEOUT", control: "actions", inputType: "number", value: "1000" },
+    ],
+  },
+  {
+    type: "spi",
+    fields: [
+      { key: "speed", label: "SPEED", control: "input", inputType: "number", value: "1000000" },
+      {
+        key: "mode",
+        label: "MODE",
+        control: "select",
+        options: [
+          { value: "0", label: "mode 0" },
+          { value: "1", label: "mode 1" },
+          { value: "2", label: "mode 2" },
+          { value: "3", label: "mode 3" },
+        ],
+      },
+      { key: "bits-per-word", label: "BITS", control: "input", inputType: "number", value: "8" },
+      { key: "chip-select", label: "CHIP SELECT", control: "actions", inputType: "text", value: "CS0" },
+    ],
+  },
+  {
+    type: "i2c",
+    fields: [
+      { key: "address", label: "ADDRESS", control: "input", inputType: "text", value: "0x3C" },
+      { key: "speed", label: "SPEED", control: "input", inputType: "number", value: "400000" },
+      { key: "timeout", label: "TIMEOUT", control: "actions", inputType: "number", value: "1000" },
+    ],
+  },
+];
+
+function renderOptions(options: OptionSpec[]): string {
+  return options
+    .map((option, index) => {
+      const selected = index === 0 ? " selected" : "";
+      return `<option value="${option.value}"${selected}>${option.label}</option>`;
+    })
+    .join("");
+}
+
+function renderFieldControl(driverType: DriverType, field: FieldSpec): string {
+  const id = `endpoint-${driverType}-${field.key}`;
+
+  if (field.control === "select") {
+    return `<select id="${id}">${renderOptions(field.options)}</select>`;
+  }
+
+  if (field.control === "actions") {
+    const clearAttrs =
+      driverType === "uart"
+        ? 'id="endpoint-clear-button"'
+        : 'data-role="endpoint-clear-mirror"';
+    const sendAttrs =
+      driverType === "uart"
+        ? 'id="endpoint-send-button"'
+        : 'data-role="endpoint-send-mirror"';
+
+    return `<div class="setting-value-row">
+            <input id="${id}" type="${field.inputType}" value="${field.value}" />
+            <div class="action-row">
+              <button ${clearAttrs} type="button" class="action-button secondary">clear</button>
+              <button ${sendAttrs} type="button" class="action-button">send</button>
+            </div>
+          </div>`;
+  }
+
+  return `<input id="${id}" type="${field.inputType}" value="${field.value}" />`;
+}
+
+function renderField(driverType: DriverType, field: FieldSpec, visible: boolean): string {
+  const actionClass = field.control === "actions" ? " setting-field-actions" : "";
+  const hiddenAttr = visible ? "" : " hidden";
+
+  return `<label class="setting-field${actionClass}" data-driver="${driverType}"${hiddenAttr}>
+          <span class="setting-label">${field.label}</span>
+          ${renderFieldControl(driverType, field)}
+        </label>`;
+}
+
+function renderDriverSection(section: DriverSection, visible: boolean): string {
+  return section.fields.map((field) => renderField(section.type, field, visible)).join("\n");
+}
+
+function renderDriverOptions(): string {
+  return driverSections
+    .map((section, index) => {
+      const selected = index === 0 ? " selected" : "";
+      return `<option value="${section.type}"${selected}>${section.type}</option>`;
+    })
+    .join("");
+}
+
+function renderDriverFields(): string {
+  return driverSections
+    .map((section, index) => renderDriverSection(section, index === 0))
+    .join("\n");
+}
+
 export function renderEndpointPanel(): string {
   return `<section class="page-panel endpoint-panel">
     <div class="input-box">
       <div class="control-row">
         <div class="select-wrap">
           <select id="endpoint-driver-type" class="top-select">
-            <option value="uart">uart</option>
-            <option value="spi">spi</option>
-            <option value="i2c">i2c</option>
+            ${renderDriverOptions()}
           </select>
         </div>
       </div>
       <div class="settings-grid settings-inline">
-        <label class="setting-field" data-driver="uart">
-          <span class="setting-label">BAUD RATE</span>
-          <input id="endpoint-uart-baud-rate" type="number" value="115200" />
-        </label>
-        <label class="setting-field" data-driver="uart">
-          <span class="setting-label">DATA BITS</span>
-          <select id="endpoint-uart-data-bits">
-            <option value="8" selected>8</option>
-            <option value="7">7</option>
-          </select>
-        </label>
-        <label class="setting-field" data-driver="uart">
-          <span class="setting-label">PARITY</span>
-          <select id="endpoint-uart-parity">
-            <option value="none" selected>none</option>
-            <option value="even">even</option>
-            <option value="odd">odd</option>
-          </select>
-        </label>
-        <label class="setting-field" data-driver="uart">
-          <span class="setting-label">STOP BITS</span>
-          <select id="endpoint-uart-stop-bits">
-            <option value="1" selected>1</option>
-            <option value="2">2</option>
-          </select>
-        </label>
-        <label class="setting-field setting-field-actions" data-driver="uart">
-          <span class="setting-label">TIMEOUT</span>
-          <div class="setting-value-row">
-            <input id="endpoint-uart-timeout" type="number" value="1000" />
-            <div class="action-row">
-              <button id="endpoint-clear-button" type="button" class="action-button secondary">clear</button>
-              <button id="endpoint-send-button" type="button" class="action-button">send</button>
-            </div>
-          </div>
-        </label>
-
-        <label class="setting-field" data-driver="spi" hidden>
-          <span class="setting-label">SPEED</span>
-          <input id="endpoint-spi-speed" type="number" value="1000000" />
-        </label>
-        <label class="setting-field" data-driver="spi" hidden>
-          <span class="setting-label">MODE</span>
-          <select id="endpoint-spi-mode">
-            <option value="0" selected>mode 0</option>
-            <option value="1">mode 1</option>
-            <option value="2">mode 2</option>
-            <option value="3">mode 3</option>
-          </select>
-        </label>
-        <label class="setting-field" data-driver="spi" hidden>
-          <span class="setting-label">BITS</span>
-          <input id="endpoint-spi-bits-per-word" type="number" value="8" />
-        </label>
-        <label class="setting-field setting-field-actions" data-driver="spi" hidden>
-          <span class="setting-label">CHIP SELECT</span>
-          <div class="setting-value-row">
-            <input id="endpoint-spi-chip-select" type="text" value="CS0" />
-            <div class="action-row">
-              <button type="button" class="action-button secondary" data-role="endpoint-clear-mirror">clear</button>
-              <button type="button" class="action-button" data-role="endpoint-send-mirror">send</button>
-            </div>
-          </div>
-        </label>
-
-        <label class="setting-field" data-driver="i2c" hidden>
-          <span class="setting-label">ADDRESS</span>
-          <input id="endpoint-i2c-address" type="text" value="0x3C" />
-        </label>
-        <label class="setting-field" data-driver="i2c" hidden>
-          <span class="setting-label">SPEED</span>
-          <input id="endpoint-i2c-speed" type="number" value="400000" />
-        </label>
-        <label class="setting-field setting-field-actions" data-driver="i2c" hidden>
-          <span class="setting-label">TIMEOUT</span>
-          <div class="setting-value-row">
-            <input id="endpoint-i2c-timeout" type="number" value="1000" />
-            <div class="action-row">
-              <button type="button" class="action-button secondary" data-role="endpoint-clear-mirror">clear</button>
-              <button type="button" class="action-button" data-role="endpoint-send-mirror">send</button>
-            </div>
-          </div>
-        </label>
+        ${renderDriverFields()}
       </div>
       <pre id="endpoint-result-output" class="parsed-output">-</pre>
     </div>

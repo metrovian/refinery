@@ -9,21 +9,36 @@ type ParseBody = {
 
 export const hexRouter = Router();
 
+function isParseType(value: unknown): value is ParseType {
+  return typeof value === "string" && value in parserRegistry;
+}
+
+function readParseRequest(body: ParseBody): { input: string; type: ParseType } {
+  if (typeof body.input !== "string") {
+    throw new Error("`input` must be a string.");
+  }
+
+  const type = body.type ?? "modbus-rtu";
+  if (!isParseType(type)) {
+    throw new Error(`Unsupported parser type: ${String(type)}`);
+  }
+
+  return { input: body.input, type };
+}
+
 hexRouter.get("/parsers", (_req, res) => {
   return res.json({ parsers: listParsers() });
 });
 
 hexRouter.post("/parser", (req, res) => {
-  const body = req.body as ParseBody;
-  const input = body.input;
-  const type = body.type ?? "modbus-rtu";
+  let input: string;
+  let type: ParseType;
 
-  if (typeof input !== "string") {
-    return res.status(400).json({ error: "`input` must be a string." });
-  }
-
-  if (!(type in parserRegistry)) {
-    return res.status(400).json({ error: `Unsupported parser type: ${String(type)}` });
+  try {
+    ({ input, type } = readParseRequest(req.body as ParseBody));
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Invalid parse request.";
+    return res.status(400).json({ error: message });
   }
 
   const result = parserRegistry[type].parse(input);
