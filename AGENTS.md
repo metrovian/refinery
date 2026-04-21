@@ -3,7 +3,8 @@
 ## 목적
 - 이 저장소는 Express + TypeScript 기반의 통신 도구 프로토타입입니다.
 - 현재 핵심 기능은 Hex 입력 기반 `MODBUS-RTU`/`MIDI` 파싱 API와 루트 UI(`/`)의 Hex 패널입니다.
-- 루트 UI에는 `endpoint` 패널도 함께 포함되지만, 실제 전송 로직은 아직 연결되지 않은 스캐폴드 상태입니다.
+- 루트 UI에는 `endpoint` 패널도 함께 포함되며, 현재 `UART`/`SPI`/`I2C` 전송 API와 연결되어 있습니다.
+- `endpoint` 전송 구현은 TypeScript 서버 코드와 Python helper 스크립트를 함께 사용합니다.
 
 ## 작업 범위 규칙
 - `archive/` 디렉터리는 무시합니다. (읽기/수정/탐색 대상에서 제외)
@@ -16,11 +17,17 @@
 - `server/`: 앱 초기화 및 서버 부트스트랩
   - `app.ts`: 미들웨어/라우터 등록
   - `index.ts`: `HOST`/`PORT`로 서버 실행
-  - `ui.ts`: 루트 HTML 렌더링, `endpoint`/`hex` 패널 조합
+  - `ui.ts`: 루트 HTML 렌더링, `endpoint`/`hex` 패널 조합 및 공용 스크립트 등록
   - `assets/styles.css`: 공통 레이아웃/패널 스타일
-- `endpoint/`: 일반 엔드포인트 라우터
-  - `router.ts`: `/api/endpoint/health`
+  - `assets/hex-input.js`: endpoint/hex 패널이 공유하는 Hex 입력 sanitize 유틸
+- `endpoint/`: 통신 엔드포인트 도메인
+  - `router.ts`: `/api/endpoint/health`, `/api/endpoint/uart/send`, `/api/endpoint/spi/send`, `/api/endpoint/i2c/send`
   - `ui.ts`: UART/SPI/I2C 설정 패널 렌더링
+  - `base.ts`: endpoint 공통 Hex 입력 파싱/포맷/숫자 파싱 유틸
+  - `uart.ts`: UART 요청 검증 및 `/dev/serial0` 기반 전송
+  - `spi.ts`: SPI 요청 검증 및 Python helper 호출
+  - `i2c.ts`: I2C 요청 검증 및 Python helper 호출
+  - `scripts/`: 실제 장치 접근용 Python helper (`spi_transfer.py`, `i2c_transfer.py`)
   - `assets/`: 엔드포인트 패널 전용 스크립트/스타일
 - `hex/`: Hex 파싱 도메인
   - `router.ts`: `/api/hex/parsers`, `/api/hex/parser`
@@ -41,15 +48,24 @@
 ## 코드 변경 가이드
 - TypeScript `strict` 모드 기준으로 타입 안정성을 유지합니다.
 - 서버는 `server/app.ts`에서 `/api/endpoint`, `/api/hex`, 정적 자산 경로를 묶어서 등록합니다. 새 라우트/자산을 추가할 때 이 조합을 기준으로 맞춥니다.
+- `server/ui.ts`는 공용 스크립트 로드 순서에 의존합니다. 공용 프런트엔드 유틸을 추가할 경우 패널 스크립트보다 먼저 포함되도록 유지합니다.
 - Hex 파서 API 응답 스키마는 아래 형태를 유지합니다.
   - 성공: `ok: true`, `type`, `bytes`, `hex`, `length`, `parsed`
   - 실패: `ok: false`, `type`, `error`
+- endpoint 전송 API 응답은 드라이버별 `config`, `tx`, `rx` 구조를 유지합니다.
+  - 성공: `ok: true`, `driver`, `config`, `tx`, `rx`
+  - 실패: `ok: false`, `driver`, `error`
 - `hex/assets/app.js`는 `parsed` 객체의 key/value를 그대로 표시하므로, 파서 구현은 사람이 읽을 수 있는 평탄한 필드를 우선 반환합니다.
+- `endpoint/assets/app.js`와 `hex/assets/app.js`는 공용 Hex sanitize 정책을 `server/assets/hex-input.js`에서 공유합니다. 입력 규칙을 바꿀 때는 두 파일을 따로 수정하지 말고 공용 유틸을 먼저 확인합니다.
+- Hex 입력창은 현재 `0-9`, `A-F`, 공백/구분자만 허용하며 `0x` prefix는 허용하지 않습니다. 이 전제와 서버 파서를 어긋나게 변경하지 않습니다.
+- 빈 Hex 입력은 프런트엔드에서 먼저 `-`로 처리합니다. 단순 빈 입력 처리를 위해 parser/driver 예외 흐름을 추가하지 않습니다.
 - 새 Hex 파서를 추가할 때는 두 방법 중 하나를 사용합니다.
   1. 권장: `npm run add:parser -- <type>` 실행 후 생성된 파일을 구체화합니다.
   2. 수동: `hex/types.ts`, `hex/parsers/`, `hex/registry.ts`, `hex/ui.ts`를 함께 수정합니다.
 - `hex/scripts/add-parser.js`는 마커 주석(`PARSER:*`)에 의존하므로, 관련 파일에서 해당 마커를 제거하거나 훼손하지 않습니다.
-- `endpoint/` 프런트엔드는 현재 UI 동작만 있고 백엔드 전송 API는 없습니다. `send` 동작을 실제화할 때는 라우터, UI, 자산을 함께 설계해야 합니다.
+- `endpoint/` 전송 구현은 드라이버별 장치 검증은 각 파일(`uart.ts`, `spi.ts`, `i2c.ts`)에 유지하고, 공통 Hex/숫자 처리만 `endpoint/base.ts`에 둡니다.
+- `SPI`/`I2C`는 Python helper 스크립트 출력 JSON을 TypeScript가 그대로 소비하므로, helper 출력 필드명과 TypeScript 타입을 어긋나게 변경하지 않습니다.
+- `endpoint/ui.ts`는 `fields`와 `actionField`를 분리한 구조입니다. 버튼 위치를 바꾸기 위해 마지막 일반 필드 의미를 억지로 변경하지 않습니다.
 
 ## 커밋 메시지 규칙 (확정)
 - 사용자 스타일 고정 템플릿:
@@ -83,3 +99,4 @@
 
 ## 검증 기준
 - 필수 검증: `npm run build` 성공
+- Python helper를 수정했다면 추가로 `python3 -m py_compile endpoint/scripts/i2c_transfer.py endpoint/scripts/spi_transfer.py` 검증을 권장합니다.
