@@ -21,17 +21,17 @@ type SelectFieldSpec = BaseFieldSpec & {
   options: OptionSpec[];
 };
 
+type FieldSpec = InputFieldSpec | SelectFieldSpec;
+
 type ActionFieldSpec = BaseFieldSpec & {
-  control: "actions";
   inputType: "number" | "text";
   value: string;
 };
 
-type FieldSpec = InputFieldSpec | SelectFieldSpec | ActionFieldSpec;
-
 type DriverSection = {
   type: DriverType;
   fields: FieldSpec[];
+  actionField: ActionFieldSpec;
 };
 
 const driverSections: DriverSection[] = [
@@ -68,8 +68,8 @@ const driverSections: DriverSection[] = [
           { value: "2", label: "2" },
         ],
       },
-      { key: "timeout", label: "TIMEOUT", control: "actions", inputType: "number", value: "1000" },
     ],
+    actionField: { key: "timeout", label: "TIMEOUT", inputType: "number", value: "1000" },
   },
   {
     type: "spi",
@@ -88,8 +88,8 @@ const driverSections: DriverSection[] = [
         ],
       },
       { key: "bits-per-word", label: "BITS", control: "input", inputType: "number", value: "8" },
-      { key: "delay", label: "DELAY", control: "actions", inputType: "number", value: "0" },
     ],
+    actionField: { key: "delay", label: "DELAY", inputType: "number", value: "0" },
   },
   {
     type: "i2c",
@@ -98,8 +98,8 @@ const driverSections: DriverSection[] = [
       { key: "address", label: "ADDRESS", control: "input", inputType: "text", value: "0x3C" },
       { key: "speed", label: "SPEED", control: "input", inputType: "number", value: "100000" },
       { key: "read-length", label: "READ LENGTH", control: "input", inputType: "number", value: "0" },
-      { key: "timeout", label: "TIMEOUT", control: "actions", inputType: "number", value: "1000" },
     ],
+    actionField: { key: "timeout", label: "TIMEOUT", inputType: "number", value: "1000" },
   },
 ];
 
@@ -119,40 +119,38 @@ function renderFieldControl(driverType: DriverType, field: FieldSpec): string {
     return `<select id="${id}">${renderOptions(field.options)}</select>`;
   }
 
-  if (field.control === "actions") {
-    const clearAttrs =
-      driverType === "uart"
-        ? 'id="endpoint-clear-button"'
-        : 'data-role="endpoint-clear-mirror"';
-    const sendAttrs =
-      driverType === "uart"
-        ? 'id="endpoint-send-button"'
-        : 'data-role="endpoint-send-mirror"';
-
-    return `<div class="setting-value-row">
-            <input id="${id}" type="${field.inputType}" value="${field.value}" />
-            <div class="action-row">
-              <button ${clearAttrs} type="button" class="action-button secondary">clear</button>
-              <button ${sendAttrs} type="button" class="action-button">send</button>
-            </div>
-          </div>`;
-  }
-
   return `<input id="${id}" type="${field.inputType}" value="${field.value}" />`;
 }
 
 function renderField(driverType: DriverType, field: FieldSpec, visible: boolean): string {
-  const actionClass = field.control === "actions" ? " setting-field-actions" : "";
   const hiddenAttr = visible ? "" : " hidden";
 
-  return `<label class="setting-field${actionClass}" data-driver="${driverType}"${hiddenAttr}>
+  return `<label class="setting-field" data-driver="${driverType}"${hiddenAttr}>
           <span class="setting-label">${field.label}</span>
           ${renderFieldControl(driverType, field)}
         </label>`;
 }
 
+function renderActionField(driverType: DriverType, field: ActionFieldSpec, visible: boolean): string {
+  const hiddenAttr = visible ? "" : " hidden";
+  const id = `endpoint-${driverType}-${field.key}`;
+  const clearAttrs = driverType === "uart" ? 'id="endpoint-clear-button"' : 'data-role="endpoint-clear-mirror"';
+  const sendAttrs = driverType === "uart" ? 'id="endpoint-send-button"' : 'data-role="endpoint-send-mirror"';
+
+  return `<label class="setting-field setting-field-actions" data-driver="${driverType}"${hiddenAttr}>
+          <span class="setting-label">${field.label}</span>
+          <div class="setting-value-row">
+            <input id="${id}" type="${field.inputType}" value="${field.value}" />
+            <div class="action-row">
+              <button ${clearAttrs} type="button" class="action-button secondary">clear</button>
+              <button ${sendAttrs} type="button" class="action-button">send</button>
+            </div>
+          </div>
+        </label>`;
+}
+
 function renderDriverSection(section: DriverSection, visible: boolean): string {
-  return section.fields.map((field) => renderField(section.type, field, visible)).join("\n");
+  return [...section.fields.map((field) => renderField(section.type, field, visible)), renderActionField(section.type, section.actionField, visible)].join("\n");
 }
 
 function renderDriverOptions(): string {
