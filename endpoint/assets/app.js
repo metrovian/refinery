@@ -75,6 +75,21 @@
     ]);
   }
 
+  function renderI2cResult(result) {
+    renderLines([
+      `driver: ${result.driver}`,
+      `board: ${result.board}`,
+      `device: ${result.config.devicePath}`,
+      `pins: sda=${result.pins.sda}, scl=${result.pins.scl}`,
+      `address: ${result.config.address}`,
+      `speed: ${result.config.speed} Hz`,
+      `read-length: ${result.config.readLength}`,
+      `timeout: ${result.config.timeout} ms`,
+      `tx (${result.tx.length}): ${result.tx.hex || "-"}`,
+      `rx (${result.rx.length}): ${result.rx.hex || "(no response)"}`,
+    ]);
+  }
+
   async function sendUart() {
     const payload = {
       input: inputEl.value,
@@ -162,6 +177,50 @@
     }
   }
 
+  async function sendI2c() {
+    const payload = {
+      input: inputEl.value,
+      devicePath: getFieldValue("i2c", "device-path"),
+      address: getFieldValue("i2c", "address"),
+      speed: Number(getFieldValue("i2c", "speed")),
+      readLength: Number(getFieldValue("i2c", "read-length")),
+      timeout: Number(getFieldValue("i2c", "timeout")),
+    };
+
+    setButtonsDisabled(true);
+    renderLines([
+      "driver: i2c",
+      "status: pending",
+      `device: ${payload.devicePath || "/dev/i2c-1"}`,
+      `address: ${payload.address || "-"}`,
+    ]);
+
+    try {
+      const response = await fetch("/api/endpoint/i2c/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || "I2C transfer failed.");
+      }
+
+      renderI2cResult(result);
+    } catch (error) {
+      renderLines([
+        "driver: i2c",
+        "status: failed",
+        `error: ${error instanceof Error ? error.message : "Unknown error"}`,
+      ]);
+    } finally {
+      setButtonsDisabled(false);
+    }
+  }
+
   driverTypeEl.addEventListener("change", () => {
     updateDriverVisibility();
   });
@@ -178,6 +237,11 @@
 
       if (driverTypeEl.value === "spi") {
         void sendSpi();
+        return;
+      }
+
+      if (driverTypeEl.value === "i2c") {
+        void sendI2c();
         return;
       }
 

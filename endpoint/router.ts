@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { I2cRequest, transferOverI2c } from "./i2c";
 import { SpiRequest, transferOverSpi } from "./spi";
 import { transferOverUart, UartRequest } from "./uart";
 
@@ -25,7 +26,13 @@ endpointRouter.get("/health", (_req, res) => {
         defaultDevice: "/dev/spidev0.0",
       },
       i2c: {
-        status: "scaffold",
+        status: "ready",
+        board: "raspberry-pi-zero-2w",
+        defaultDevice: "/dev/i2c-1",
+        pins: {
+          sda: "GPIO2 / pin 3",
+          scl: "GPIO3 / pin 5",
+        },
       },
     },
   });
@@ -54,6 +61,20 @@ endpointRouter.post("/spi/send", async (req, res) => {
     return res.status(400).json({
       ok: false,
       driver: "spi",
+      error: message,
+    });
+  }
+});
+
+endpointRouter.post("/i2c/send", async (req, res) => {
+  try {
+    const result = await transferOverI2c(req.body as I2cRequest);
+    return res.json(result);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "I2C transfer failed.";
+    return res.status(400).json({
+      ok: false,
+      driver: "i2c",
       error: message,
     });
   }

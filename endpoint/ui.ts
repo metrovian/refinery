@@ -94,8 +94,10 @@ const driverSections: DriverSection[] = [
   {
     type: "i2c",
     fields: [
+      { key: "device-path", label: "DEVICE", control: "input", inputType: "text", value: "/dev/i2c-1" },
       { key: "address", label: "ADDRESS", control: "input", inputType: "text", value: "0x3C" },
-      { key: "speed", label: "SPEED", control: "input", inputType: "number", value: "400000" },
+      { key: "speed", label: "SPEED", control: "input", inputType: "number", value: "100000" },
+      { key: "read-length", label: "READ LEN", control: "input", inputType: "number", value: "0" },
       { key: "timeout", label: "TIMEOUT", control: "actions", inputType: "number", value: "1000" },
     ],
   },
