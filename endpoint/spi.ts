@@ -7,7 +7,7 @@ const DEFAULT_SPI_DEVICE = "/dev/spidev0.0";
 
 export type SpiRequest = {
   input: string;
-  chipSelect?: string;
+  devicePath?: string;
   speed?: number;
   mode?: number;
   bitsPerWord?: number;
@@ -96,11 +96,11 @@ function resolveSpiDevice(devicePath: string): string {
     return trimmed;
   }
 
-  throw new Error("`chipSelect` must be a /dev/spidevX.Y path.");
+  throw new Error("`devicePath` must be a /dev/spidevX.Y path.");
 }
 
 function readSpiConfig(body: SpiRequest): SpiConfig {
-  const chipSelect = typeof body.chipSelect === "string" ? body.chipSelect : "";
+  const devicePath = typeof body.devicePath === "string" ? body.devicePath : "";
   const speed = parseNumber(body.speed, "speed", 1_000_000);
   const mode = parseNumber(body.mode, "mode", 0);
   const bitsPerWord = parseNumber(body.bitsPerWord, "bitsPerWord", 8);
@@ -123,7 +123,7 @@ function readSpiConfig(body: SpiRequest): SpiConfig {
   }
 
   return {
-    devicePath: resolveSpiDevice(chipSelect),
+    devicePath: resolveSpiDevice(devicePath),
     speed,
     mode,
     bitsPerWord,

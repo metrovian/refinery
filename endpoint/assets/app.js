@@ -78,7 +78,7 @@
       `device: ${result.config.devicePath}`,
       `address: ${result.config.address}`,
       `speed: ${result.config.speed} Hz`,
-      `read-length: ${result.config.readLength}`,
+      `read length: ${result.config.readLength}`,
       `timeout: ${result.config.timeout} ms`,
       `tx (${result.tx.length}): ${result.tx.hex || "-"}`,
       `rx (${result.rx.length}): ${result.rx.hex || "(no response)"}`,
@@ -132,7 +132,7 @@
   async function sendSpi() {
     const payload = {
       input: inputEl.value,
-      chipSelect: getFieldValue("spi", "chip-select"),
+      devicePath: getFieldValue("spi", "device-path"),
       speed: Number(getFieldValue("spi", "speed")),
       mode: Number(getFieldValue("spi", "mode")),
       bitsPerWord: Number(getFieldValue("spi", "bits-per-word")),
@@ -143,7 +143,7 @@
     renderLines([
       "driver: spi",
       "status: pending",
-      `device: ${payload.chipSelect || "/dev/spidev0.0"}`,
+      `device: ${payload.devicePath || "/dev/spidev0.0"}`,
     ]);
 
     try {

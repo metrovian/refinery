@@ -74,7 +74,7 @@ const driverSections: DriverSection[] = [
   {
     type: "spi",
     fields: [
-      { key: "chip-select", label: "CHIP SELECT", control: "input", inputType: "text", value: "/dev/spidev0.0" },
+      { key: "device-path", label: "DEVICE", control: "input", inputType: "text", value: "/dev/spidev0.0" },
       { key: "speed", label: "SPEED", control: "input", inputType: "number", value: "1000000" },
       {
         key: "mode",
@@ -97,7 +97,7 @@ const driverSections: DriverSection[] = [
       { key: "device-path", label: "DEVICE", control: "input", inputType: "text", value: "/dev/i2c-1" },
       { key: "address", label: "ADDRESS", control: "input", inputType: "text", value: "0x3C" },
       { key: "speed", label: "SPEED", control: "input", inputType: "number", value: "100000" },
-      { key: "read-length", label: "READ LEN", control: "input", inputType: "number", value: "0" },
+      { key: "read-length", label: "READ LENGTH", control: "input", inputType: "number", value: "0" },
       { key: "timeout", label: "TIMEOUT", control: "actions", inputType: "number", value: "1000" },
     ],
   },
