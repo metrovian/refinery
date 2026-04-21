@@ -1,11 +1,11 @@
 (() => {
   function sanitizeHexInput(value) {
-    return value
+    const normalized = value
       .toUpperCase()
       .replace(/[^0-9A-F\s,;:-]/g, "")
-      .replace(/[,:;-]+/g, " ")
-      .replace(/\s+/g, " ")
-      .trimStart();
+      .replace(/[\s,;:-]+/g, "");
+
+    return normalized.match(/.{1,2}/g)?.join(" ") ?? "";
   }
 
   function hasHexInput(value) {

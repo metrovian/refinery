@@ -1,9 +1,28 @@
 function normalizeHexToken(token: string): string {
-  if (!/^[0-9a-fA-F]{1,2}$/.test(token)) {
-    throw new Error(`Invalid hex byte: ${token}`);
+  if (!/^[0-9a-fA-F]+$/.test(token)) {
+    throw new Error(`Invalid hex token: ${token}`);
   }
 
-  return token.padStart(2, "0").toUpperCase();
+  return token.toUpperCase();
+}
+
+function parseTokenToBytes(token: string): number[] {
+  const normalized = normalizeHexToken(token);
+
+  if (normalized.length <= 2) {
+    return [Number.parseInt(normalized.padStart(2, "0"), 16)];
+  }
+
+  if (normalized.length % 2 !== 0) {
+    throw new Error(`Token must have even length when longer than 2: ${token}`);
+  }
+
+  const bytes: number[] = [];
+  for (let index = 0; index < normalized.length; index += 2) {
+    bytes.push(Number.parseInt(normalized.slice(index, index + 2), 16));
+  }
+
+  return bytes;
 }
 
 export function parseHexInput(input: string): number[] {
@@ -15,7 +34,7 @@ export function parseHexInput(input: string): number[] {
   return trimmed
     .split(/[\s,]+/)
     .filter(Boolean)
-    .map((token) => Number.parseInt(normalizeHexToken(token), 16));
+    .flatMap(parseTokenToBytes);
 }
 
 export function formatHex(bytes: number[]): string {
