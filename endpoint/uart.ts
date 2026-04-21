@@ -33,11 +33,6 @@ export type UartConfig = {
 export type UartTransferResult = {
   ok: true;
   driver: "uart";
-  board: "raspberry-pi-zero-2w";
-  pins: {
-    tx: "GPIO14 / pin 8";
-    rx: "GPIO15 / pin 10";
-  };
   config: UartConfig;
   tx: {
     bytes: number[];
@@ -217,11 +212,6 @@ export async function transferOverUart(body: UartRequest): Promise<UartTransferR
     return {
       ok: true,
       driver: "uart",
-      board: "raspberry-pi-zero-2w",
-      pins: {
-        tx: "GPIO14 / pin 8",
-        rx: "GPIO15 / pin 10",
-      },
       config,
       tx: {
         bytes: txBytes,

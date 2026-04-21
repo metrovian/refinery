@@ -25,7 +25,6 @@ export type SpiConfig = {
 export type SpiTransferResult = {
   ok: true;
   driver: "spi";
-  board: "raspberry-pi-zero-2w";
   config: SpiConfig;
   tx: {
     bytes: number[];
@@ -42,7 +41,6 @@ export type SpiTransferResult = {
 type SpiHelperResult = {
   ok: true;
   driver: "spi";
-  board: "raspberry-pi-zero-2w";
   config: SpiConfig;
   tx: {
     bytes: number[];

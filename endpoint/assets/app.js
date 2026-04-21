@@ -50,9 +50,7 @@
   function renderUartResult(result) {
     renderLines([
       `driver: ${result.driver}`,
-      `board: ${result.board}`,
       `device: ${result.config.devicePath}`,
-      `pins: tx=${result.pins.tx}, rx=${result.pins.rx}`,
       `baud: ${result.config.baudRate}`,
       `format: ${result.config.dataBits}${result.config.parity[0].toUpperCase()}${result.config.stopBits}`,
       `timeout: ${result.config.timeout} ms`,
@@ -64,7 +62,6 @@
   function renderSpiResult(result) {
     renderLines([
       `driver: ${result.driver}`,
-      `board: ${result.board}`,
       `device: ${result.config.devicePath}`,
       `speed: ${result.config.speed} Hz`,
       `mode: ${result.config.mode}`,
@@ -78,9 +75,7 @@
   function renderI2cResult(result) {
     renderLines([
       `driver: ${result.driver}`,
-      `board: ${result.board}`,
       `device: ${result.config.devicePath}`,
-      `pins: sda=${result.pins.sda}, scl=${result.pins.scl}`,
       `address: ${result.config.address}`,
       `speed: ${result.config.speed} Hz`,
       `read-length: ${result.config.readLength}`,

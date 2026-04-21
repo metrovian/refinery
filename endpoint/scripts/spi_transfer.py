@@ -109,7 +109,6 @@ def main() -> None:
             {
                 "ok": True,
                 "driver": "spi",
-                "board": "raspberry-pi-zero-2w",
                 "config": {
                     "devicePath": device_path,
                     "speed": speed,

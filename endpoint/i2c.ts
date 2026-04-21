@@ -26,11 +26,6 @@ export type I2cConfig = {
 export type I2cTransferResult = {
   ok: true;
   driver: "i2c";
-  board: "raspberry-pi-zero-2w";
-  pins: {
-    sda: "GPIO2 / pin 3";
-    scl: "GPIO3 / pin 5";
-  };
   config: I2cConfig;
   tx: {
     bytes: number[];

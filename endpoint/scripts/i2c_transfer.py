@@ -60,11 +60,6 @@ def main() -> None:
             {
                 "ok": True,
                 "driver": "i2c",
-                "board": "raspberry-pi-zero-2w",
-                "pins": {
-                    "sda": "GPIO2 / pin 3",
-                    "scl": "GPIO3 / pin 5",
-                },
                 "config": {
                     "devicePath": device_path,
                     "address": f"0x{address:02X}",

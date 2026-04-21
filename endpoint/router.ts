@@ -13,26 +13,15 @@ endpointRouter.get("/health", (_req, res) => {
     drivers: {
       uart: {
         status: "ready",
-        board: "raspberry-pi-zero-2w",
         defaultDevice: "/dev/serial0",
-        pins: {
-          tx: "GPIO14 / pin 8",
-          rx: "GPIO15 / pin 10",
-        },
       },
       spi: {
         status: "ready",
-        board: "raspberry-pi-zero-2w",
         defaultDevice: "/dev/spidev0.0",
       },
       i2c: {
         status: "ready",
-        board: "raspberry-pi-zero-2w",
         defaultDevice: "/dev/i2c-1",
-        pins: {
-          sda: "GPIO2 / pin 3",
-          scl: "GPIO3 / pin 5",
-        },
       },
     },
   });
