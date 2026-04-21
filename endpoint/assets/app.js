@@ -1,4 +1,5 @@
 (() => {
+  const { hasHexInput, sanitizeHexInput } = window.hexInputUtils;
   const inputEl = document.getElementById("endpoint-hex-input");
   const driverTypeEl = document.getElementById("endpoint-driver-type");
   const resultOutputEl = document.getElementById("endpoint-result-output");
@@ -11,19 +12,6 @@
     document.getElementById("endpoint-send-button"),
     ...document.querySelectorAll('[data-role="endpoint-send-mirror"]'),
   ].filter(Boolean);
-
-  function sanitizeHexInput(value) {
-    return value
-      .toUpperCase()
-      .replace(/[^0-9A-F\s,;:-]/g, "")
-      .replace(/[,:;-]+/g, " ")
-      .replace(/\s+/g, " ")
-      .trimStart();
-  }
-
-  function hasHexInput() {
-    return inputEl.value.trim().length > 0;
-  }
 
   function getFieldValue(driver, key) {
     const fieldEl = document.getElementById(`endpoint-${driver}-${key}`);
@@ -162,7 +150,7 @@
   };
 
   async function sendDriverRequest(driver) {
-    if (!hasHexInput()) {
+    if (!hasHexInput(inputEl.value)) {
       resultOutputEl.textContent = "-";
       return;
     }
@@ -208,7 +196,7 @@
       inputEl.value = sanitized;
     }
 
-    if (!hasHexInput()) {
+    if (!hasHexInput(inputEl.value)) {
       resultOutputEl.textContent = "-";
     }
   });

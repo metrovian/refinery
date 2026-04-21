@@ -1,21 +1,9 @@
 (() => {
+  const { hasHexInput, sanitizeHexInput } = window.hexInputUtils;
   const inputEl = document.getElementById("hex-input");
   const parserTypeEl = document.getElementById("parser-type");
   const resultOutputEl = document.getElementById("result-output");
   let parseTimer = null;
-
-  function sanitizeHexInput(value) {
-    return value
-      .toUpperCase()
-      .replace(/[^0-9A-F\s,;:-]/g, "")
-      .replace(/[,:;-]+/g, " ")
-      .replace(/\s+/g, " ")
-      .trimStart();
-  }
-
-  function hasHexInput() {
-    return inputEl.value.trim().length > 0;
-  }
 
   function formatPrimitive(value) {
     if (typeof value === "number") {
@@ -95,7 +83,7 @@
   }
 
   async function parse() {
-    if (!hasHexInput()) {
+    if (!hasHexInput(inputEl.value)) {
       reset();
       return;
     }

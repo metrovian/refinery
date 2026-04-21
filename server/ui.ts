@@ -2,7 +2,7 @@ import { renderEndpointPanel } from "../endpoint/ui";
 import { renderHexPanel } from "../hex/ui";
 
 const stylesheetUrls = ["/server/assets/styles.css", "/endpoint/assets/styles.css"];
-const scriptUrls = ["/endpoint/assets/app.js", "/hex/assets/app.js"];
+const scriptUrls = ["/server/assets/hex-input.js", "/endpoint/assets/app.js", "/hex/assets/app.js"];
 
 function renderStylesheets(): string {
   return stylesheetUrls.map((href) => `    <link rel="stylesheet" href="${href}" />`).join("\n");
