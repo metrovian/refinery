@@ -12,6 +12,19 @@
     ...document.querySelectorAll('[data-role="endpoint-send-mirror"]'),
   ].filter(Boolean);
 
+  function sanitizeHexInput(value) {
+    return value
+      .toUpperCase()
+      .replace(/[^0-9A-FX\s,;:-]/g, "")
+      .replace(/[,:;-]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trimStart();
+  }
+
+  function hasHexInput() {
+    return inputEl.value.trim().length > 0;
+  }
+
   function getFieldValue(driver, key) {
     const fieldEl = document.getElementById(`endpoint-${driver}-${key}`);
     return fieldEl ? fieldEl.value : "";
@@ -86,6 +99,11 @@
   }
 
   async function sendUart() {
+    if (!hasHexInput()) {
+      resultOutputEl.textContent = "-";
+      return;
+    }
+
     const payload = {
       input: inputEl.value,
       devicePath: getFieldValue("uart", "device-path"),
@@ -130,6 +148,11 @@
   }
 
   async function sendSpi() {
+    if (!hasHexInput()) {
+      resultOutputEl.textContent = "-";
+      return;
+    }
+
     const payload = {
       input: inputEl.value,
       devicePath: getFieldValue("spi", "device-path"),
@@ -173,6 +196,11 @@
   }
 
   async function sendI2c() {
+    if (!hasHexInput()) {
+      resultOutputEl.textContent = "-";
+      return;
+    }
+
     const payload = {
       input: inputEl.value,
       devicePath: getFieldValue("i2c", "device-path"),
@@ -218,6 +246,16 @@
 
   driverTypeEl.addEventListener("change", () => {
     updateDriverVisibility();
+  });
+  inputEl.addEventListener("input", () => {
+    const sanitized = sanitizeHexInput(inputEl.value);
+    if (inputEl.value !== sanitized) {
+      inputEl.value = sanitized;
+    }
+
+    if (!hasHexInput()) {
+      resultOutputEl.textContent = "-";
+    }
   });
 
   clearButtonEls.forEach((buttonEl) => {

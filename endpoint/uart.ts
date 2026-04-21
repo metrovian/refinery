@@ -57,7 +57,7 @@ function normalizeHexToken(token: string): string {
 function parseHexInput(input: string): number[] {
   const trimmed = input.trim();
   if (!trimmed) {
-    throw new Error("`input` must include at least one hex byte.");
+    return [];
   }
 
   return trimmed

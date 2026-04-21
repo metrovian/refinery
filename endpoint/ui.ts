@@ -189,7 +189,7 @@ export function renderEndpointPanel(): string {
       id="endpoint-hex-input"
       class="raw-input"
       spellcheck="false"
-      placeholder="0A FF 1C"
+      placeholder="INPUT HEX"
     ></textarea>
   </section>`;
 }

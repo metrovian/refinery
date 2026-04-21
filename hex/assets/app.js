@@ -4,6 +4,19 @@
   const resultOutputEl = document.getElementById("result-output");
   let parseTimer = null;
 
+  function sanitizeHexInput(value) {
+    return value
+      .toUpperCase()
+      .replace(/[^0-9A-FX\s,;:-]/g, "")
+      .replace(/[,:;-]+/g, " ")
+      .replace(/\s+/g, " ")
+      .trimStart();
+  }
+
+  function hasHexInput() {
+    return inputEl.value.trim().length > 0;
+  }
+
   function formatPrimitive(value) {
     if (typeof value === "number") {
       return String(value);
@@ -65,7 +78,7 @@
   }
 
   function reset() {
-    renderParsed({});
+    resultOutputEl.textContent = "-";
   }
 
   async function requestParse() {
@@ -82,6 +95,11 @@
   }
 
   async function parse() {
+    if (!hasHexInput()) {
+      reset();
+      return;
+    }
+
     try {
       const data = await requestParse();
       renderParsed(data.parsed);
@@ -98,9 +116,15 @@
   }
 
   ["input", "change"].forEach((eventName) => {
-    inputEl.addEventListener(eventName, scheduleParse);
+    inputEl.addEventListener(eventName, () => {
+      const sanitized = sanitizeHexInput(inputEl.value);
+      if (inputEl.value !== sanitized) {
+        inputEl.value = sanitized;
+      }
+
+      scheduleParse();
+    });
   });
   parserTypeEl.addEventListener("change", scheduleParse);
   reset();
-  parse();
 })();

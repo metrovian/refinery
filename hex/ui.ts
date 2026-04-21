@@ -12,6 +12,6 @@ export function renderHexPanel(): string {
       </div>
       <pre id="result-output" class="parsed-output">-</pre>
     </div>
-    <textarea id="hex-input" class="raw-input" spellcheck="false" placeholder="0A FF 1C"></textarea>
+    <textarea id="hex-input" class="raw-input" spellcheck="false" placeholder="INPUT HEX"></textarea>
   </section>`;
 }
