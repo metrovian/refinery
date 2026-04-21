@@ -61,6 +61,20 @@
     ]);
   }
 
+  function renderSpiResult(result) {
+    renderLines([
+      `driver: ${result.driver}`,
+      `board: ${result.board}`,
+      `device: ${result.config.devicePath}`,
+      `speed: ${result.config.speed} Hz`,
+      `mode: ${result.config.mode}`,
+      `bits: ${result.config.bitsPerWord}`,
+      `delay: ${result.config.delay} us`,
+      `tx (${result.tx.length}): ${result.tx.hex || "-"}`,
+      `rx (${result.rx.length}): ${result.rx.hex || "(no response)"}`,
+    ]);
+  }
+
   async function sendUart() {
     const payload = {
       input: inputEl.value,
@@ -105,6 +119,49 @@
     }
   }
 
+  async function sendSpi() {
+    const payload = {
+      input: inputEl.value,
+      chipSelect: getFieldValue("spi", "chip-select"),
+      speed: Number(getFieldValue("spi", "speed")),
+      mode: Number(getFieldValue("spi", "mode")),
+      bitsPerWord: Number(getFieldValue("spi", "bits-per-word")),
+      delay: Number(getFieldValue("spi", "delay")),
+    };
+
+    setButtonsDisabled(true);
+    renderLines([
+      "driver: spi",
+      "status: pending",
+      `device: ${payload.chipSelect || "/dev/spidev0.0"}`,
+    ]);
+
+    try {
+      const response = await fetch("/api/endpoint/spi/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || "SPI transfer failed.");
+      }
+
+      renderSpiResult(result);
+    } catch (error) {
+      renderLines([
+        "driver: spi",
+        "status: failed",
+        `error: ${error instanceof Error ? error.message : "Unknown error"}`,
+      ]);
+    } finally {
+      setButtonsDisabled(false);
+    }
+  }
+
   driverTypeEl.addEventListener("change", () => {
     updateDriverVisibility();
   });
@@ -116,6 +173,11 @@
     buttonEl.addEventListener("click", () => {
       if (driverTypeEl.value === "uart") {
         void sendUart();
+        return;
+      }
+
+      if (driverTypeEl.value === "spi") {
+        void sendSpi();
         return;
       }
 
