@@ -98,31 +98,83 @@
     ]);
   }
 
-  async function sendUart() {
+  const driverConfigs = {
+    uart: {
+      endpoint: "/api/endpoint/uart/send",
+      errorMessage: "UART transfer failed.",
+      buildPayload() {
+        return {
+          input: inputEl.value,
+          devicePath: getFieldValue("uart", "device-path"),
+          baudRate: Number(getFieldValue("uart", "baud-rate")),
+          dataBits: Number(getFieldValue("uart", "data-bits")),
+          parity: getFieldValue("uart", "parity"),
+          stopBits: Number(getFieldValue("uart", "stop-bits")),
+          timeout: Number(getFieldValue("uart", "timeout")),
+        };
+      },
+      renderPending(payload) {
+        renderLines(["driver: uart", "status: pending", `device: ${payload.devicePath || "/dev/serial0"}`]);
+      },
+      renderResult: renderUartResult,
+    },
+    spi: {
+      endpoint: "/api/endpoint/spi/send",
+      errorMessage: "SPI transfer failed.",
+      buildPayload() {
+        return {
+          input: inputEl.value,
+          devicePath: getFieldValue("spi", "device-path"),
+          speed: Number(getFieldValue("spi", "speed")),
+          mode: Number(getFieldValue("spi", "mode")),
+          bitsPerWord: Number(getFieldValue("spi", "bits-per-word")),
+          delay: Number(getFieldValue("spi", "delay")),
+        };
+      },
+      renderPending(payload) {
+        renderLines(["driver: spi", "status: pending", `device: ${payload.devicePath || "/dev/spidev0.0"}`]);
+      },
+      renderResult: renderSpiResult,
+    },
+    i2c: {
+      endpoint: "/api/endpoint/i2c/send",
+      errorMessage: "I2C transfer failed.",
+      buildPayload() {
+        return {
+          input: inputEl.value,
+          devicePath: getFieldValue("i2c", "device-path"),
+          address: getFieldValue("i2c", "address"),
+          speed: Number(getFieldValue("i2c", "speed")),
+          readLength: Number(getFieldValue("i2c", "read-length")),
+          timeout: Number(getFieldValue("i2c", "timeout")),
+        };
+      },
+      renderPending(payload) {
+        renderLines([
+          "driver: i2c",
+          "status: pending",
+          `device: ${payload.devicePath || "/dev/i2c-1"}`,
+          `address: ${payload.address || "-"}`,
+        ]);
+      },
+      renderResult: renderI2cResult,
+    },
+  };
+
+  async function sendDriverRequest(driver) {
     if (!hasHexInput()) {
       resultOutputEl.textContent = "-";
       return;
     }
 
-    const payload = {
-      input: inputEl.value,
-      devicePath: getFieldValue("uart", "device-path"),
-      baudRate: Number(getFieldValue("uart", "baud-rate")),
-      dataBits: Number(getFieldValue("uart", "data-bits")),
-      parity: getFieldValue("uart", "parity"),
-      stopBits: Number(getFieldValue("uart", "stop-bits")),
-      timeout: Number(getFieldValue("uart", "timeout")),
-    };
+    const config = driverConfigs[driver];
+    const payload = config.buildPayload();
 
     setButtonsDisabled(true);
-    renderLines([
-      "driver: uart",
-      "status: pending",
-      `device: ${payload.devicePath || "/dev/serial0"}`,
-    ]);
+    config.renderPending(payload);
 
     try {
-      const response = await fetch("/api/endpoint/uart/send", {
+      const response = await fetch(config.endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -132,110 +184,13 @@
       const result = await response.json();
 
       if (!response.ok || !result.ok) {
-        throw new Error(result.error || "UART transfer failed.");
+        throw new Error(result.error || config.errorMessage);
       }
 
-      renderUartResult(result);
+      config.renderResult(result);
     } catch (error) {
       renderLines([
-        "driver: uart",
-        "status: failed",
-        `error: ${error instanceof Error ? error.message : "Unknown error"}`,
-      ]);
-    } finally {
-      setButtonsDisabled(false);
-    }
-  }
-
-  async function sendSpi() {
-    if (!hasHexInput()) {
-      resultOutputEl.textContent = "-";
-      return;
-    }
-
-    const payload = {
-      input: inputEl.value,
-      devicePath: getFieldValue("spi", "device-path"),
-      speed: Number(getFieldValue("spi", "speed")),
-      mode: Number(getFieldValue("spi", "mode")),
-      bitsPerWord: Number(getFieldValue("spi", "bits-per-word")),
-      delay: Number(getFieldValue("spi", "delay")),
-    };
-
-    setButtonsDisabled(true);
-    renderLines([
-      "driver: spi",
-      "status: pending",
-      `device: ${payload.devicePath || "/dev/spidev0.0"}`,
-    ]);
-
-    try {
-      const response = await fetch("/api/endpoint/spi/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      const result = await response.json();
-
-      if (!response.ok || !result.ok) {
-        throw new Error(result.error || "SPI transfer failed.");
-      }
-
-      renderSpiResult(result);
-    } catch (error) {
-      renderLines([
-        "driver: spi",
-        "status: failed",
-        `error: ${error instanceof Error ? error.message : "Unknown error"}`,
-      ]);
-    } finally {
-      setButtonsDisabled(false);
-    }
-  }
-
-  async function sendI2c() {
-    if (!hasHexInput()) {
-      resultOutputEl.textContent = "-";
-      return;
-    }
-
-    const payload = {
-      input: inputEl.value,
-      devicePath: getFieldValue("i2c", "device-path"),
-      address: getFieldValue("i2c", "address"),
-      speed: Number(getFieldValue("i2c", "speed")),
-      readLength: Number(getFieldValue("i2c", "read-length")),
-      timeout: Number(getFieldValue("i2c", "timeout")),
-    };
-
-    setButtonsDisabled(true);
-    renderLines([
-      "driver: i2c",
-      "status: pending",
-      `device: ${payload.devicePath || "/dev/i2c-1"}`,
-      `address: ${payload.address || "-"}`,
-    ]);
-
-    try {
-      const response = await fetch("/api/endpoint/i2c/send", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-      const result = await response.json();
-
-      if (!response.ok || !result.ok) {
-        throw new Error(result.error || "I2C transfer failed.");
-      }
-
-      renderI2cResult(result);
-    } catch (error) {
-      renderLines([
-        "driver: i2c",
+        `driver: ${driver}`,
         "status: failed",
         `error: ${error instanceof Error ? error.message : "Unknown error"}`,
       ]);
@@ -263,18 +218,8 @@
   });
   sendButtonEls.forEach((buttonEl) => {
     buttonEl.addEventListener("click", () => {
-      if (driverTypeEl.value === "uart") {
-        void sendUart();
-        return;
-      }
-
-      if (driverTypeEl.value === "spi") {
-        void sendSpi();
-        return;
-      }
-
-      if (driverTypeEl.value === "i2c") {
-        void sendI2c();
+      if (driverTypeEl.value in driverConfigs) {
+        void sendDriverRequest(driverTypeEl.value);
         return;
       }
 
