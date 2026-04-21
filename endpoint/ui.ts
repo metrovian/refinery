@@ -38,6 +38,7 @@ const driverSections: DriverSection[] = [
   {
     type: "uart",
     fields: [
+      { key: "device-path", label: "DEVICE", control: "input", inputType: "text", value: "/dev/serial0" },
       { key: "baud-rate", label: "BAUD RATE", control: "input", inputType: "number", value: "115200" },
       {
         key: "data-bits",

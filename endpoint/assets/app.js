@@ -12,6 +12,21 @@
     ...document.querySelectorAll('[data-role="endpoint-send-mirror"]'),
   ].filter(Boolean);
 
+  function getFieldValue(driver, key) {
+    const fieldEl = document.getElementById(`endpoint-${driver}-${key}`);
+    return fieldEl ? fieldEl.value : "";
+  }
+
+  function renderLines(lines) {
+    resultOutputEl.textContent = lines.join("\n");
+  }
+
+  function setButtonsDisabled(disabled) {
+    sendButtonEls.forEach((buttonEl) => {
+      buttonEl.disabled = disabled;
+    });
+  }
+
   function updateDriverVisibility() {
     const currentDriver = driverTypeEl.value;
     settingFieldEls.forEach((fieldEl) => {
@@ -32,6 +47,64 @@
     ].join("\n");
   }
 
+  function renderUartResult(result) {
+    renderLines([
+      `driver: ${result.driver}`,
+      `board: ${result.board}`,
+      `device: ${result.config.devicePath}`,
+      `pins: tx=${result.pins.tx}, rx=${result.pins.rx}`,
+      `baud: ${result.config.baudRate}`,
+      `format: ${result.config.dataBits}${result.config.parity[0].toUpperCase()}${result.config.stopBits}`,
+      `timeout: ${result.config.timeout} ms`,
+      `tx (${result.tx.length}): ${result.tx.hex || "-"}`,
+      `rx (${result.rx.length}): ${result.rx.hex || "(no response)"}`,
+    ]);
+  }
+
+  async function sendUart() {
+    const payload = {
+      input: inputEl.value,
+      devicePath: getFieldValue("uart", "device-path"),
+      baudRate: Number(getFieldValue("uart", "baud-rate")),
+      dataBits: Number(getFieldValue("uart", "data-bits")),
+      parity: getFieldValue("uart", "parity"),
+      stopBits: Number(getFieldValue("uart", "stop-bits")),
+      timeout: Number(getFieldValue("uart", "timeout")),
+    };
+
+    setButtonsDisabled(true);
+    renderLines([
+      "driver: uart",
+      "status: pending",
+      `device: ${payload.devicePath || "/dev/serial0"}`,
+    ]);
+
+    try {
+      const response = await fetch("/api/endpoint/uart/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json();
+
+      if (!response.ok || !result.ok) {
+        throw new Error(result.error || "UART transfer failed.");
+      }
+
+      renderUartResult(result);
+    } catch (error) {
+      renderLines([
+        "driver: uart",
+        "status: failed",
+        `error: ${error instanceof Error ? error.message : "Unknown error"}`,
+      ]);
+    } finally {
+      setButtonsDisabled(false);
+    }
+  }
+
   driverTypeEl.addEventListener("change", () => {
     updateDriverVisibility();
   });
@@ -40,7 +113,14 @@
     buttonEl.addEventListener("click", reset);
   });
   sendButtonEls.forEach((buttonEl) => {
-    buttonEl.addEventListener("click", renderPendingMessage);
+    buttonEl.addEventListener("click", () => {
+      if (driverTypeEl.value === "uart") {
+        void sendUart();
+        return;
+      }
+
+      renderPendingMessage();
+    });
   });
 
   updateDriverVisibility();
