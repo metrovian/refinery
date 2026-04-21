@@ -1,6 +1,7 @@
 import { execFile } from "child_process";
 import { open } from "fs/promises";
 import { promisify } from "util";
+import { formatHex, parseHexInput, parseNumber } from "./base";
 
 const execFileAsync = promisify(execFile);
 const DEFAULT_UART_DEVICE = "/dev/serial0";
@@ -45,46 +46,6 @@ export type UartTransferResult = {
     length: number;
   };
 };
-
-function normalizeHexToken(token: string): string {
-  if (!/^[0-9a-fA-F]{1,2}$/.test(token)) {
-    throw new Error(`Invalid hex byte: ${token}`);
-  }
-
-  return token.padStart(2, "0").toUpperCase();
-}
-
-function parseHexInput(input: string): number[] {
-  const trimmed = input.trim();
-  if (!trimmed) {
-    return [];
-  }
-
-  return trimmed
-    .split(/[\s,]+/)
-    .filter(Boolean)
-    .map((token) => Number.parseInt(normalizeHexToken(token), 16));
-}
-
-function formatHex(bytes: number[]): string {
-  if (bytes.length === 0) {
-    return "";
-  }
-
-  return bytes.map((value) => value.toString(16).padStart(2, "0").toUpperCase()).join(" ");
-}
-
-function parseNumber(value: unknown, field: string, fallback: number): number {
-  if (value === undefined) {
-    return fallback;
-  }
-
-  if (typeof value !== "number" || Number.isNaN(value) || !Number.isFinite(value)) {
-    throw new Error(`\`${field}\` must be a number.`);
-  }
-
-  return value;
-}
 
 function readUartConfig(body: UartRequest): UartConfig {
   const devicePath = typeof body.devicePath === "string" && body.devicePath.trim() ? body.devicePath.trim() : DEFAULT_UART_DEVICE;
