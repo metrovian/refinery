@@ -15,7 +15,7 @@
   function sanitizeHexInput(value) {
     return value
       .toUpperCase()
-      .replace(/[^0-9A-FX\s,;:-]/g, "")
+      .replace(/[^0-9A-F\s,;:-]/g, "")
       .replace(/[,:;-]+/g, " ")
       .replace(/\s+/g, " ")
       .trimStart();

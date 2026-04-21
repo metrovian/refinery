@@ -7,7 +7,7 @@ export function tokenize(input: string): string[] {
 }
 
 export function parseTokenToBytes(token: string): number[] {
-  const normalized = token.replace(/^0x/i, "");
+  const normalized = token;
   if (!normalized) {
     throw new Error("Empty token is not allowed.");
   }
