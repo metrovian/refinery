@@ -53,7 +53,6 @@
       `baud: ${result.config.baudRate}`,
       `format: ${result.config.dataBits}${result.config.parity[0].toUpperCase()}${result.config.stopBits}`,
       `timeout: ${result.config.timeout} ms`,
-      "",
       `tx[${result.tx.length}]: ${result.tx.hex || "-"}`,
       `rx[${result.rx.length}]: ${result.rx.hex || "(no response)"}`,
     ]);
@@ -66,7 +65,6 @@
       `mode: ${result.config.mode}`,
       `bits: ${result.config.bitsPerWord}`,
       `delay: ${result.config.delay} us`,
-      "",
       `tx[${result.tx.length}]: ${result.tx.hex || "-"}`,
       `rx[${result.rx.length}]: ${result.rx.hex || "(no response)"}`,
     ]);
@@ -77,9 +75,7 @@
       `device: ${result.config.devicePath}`,
       `address: ${result.config.address}`,
       `speed: ${result.config.speed} Hz`,
-      `read length: ${result.config.readLength}`,
       `timeout: ${result.config.timeout} ms`,
-      "",
       `tx[${result.tx.length}]: ${result.tx.hex || "-"}`,
       `rx[${result.rx.length}]: ${result.rx.hex || "(no response)"}`,
     ]);
