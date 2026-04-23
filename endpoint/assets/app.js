@@ -50,8 +50,8 @@
   function renderUartResult(result) {
     renderLines([
       `device: ${result.config.devicePath}`,
-      `baud: ${result.config.baudRate}`,
-      `format: ${result.config.dataBits}${result.config.parity[0].toUpperCase()}${result.config.stopBits}`,
+      `set: ${result.config.dataBits}${result.config.parity[0].toUpperCase()}${result.config.stopBits}`,
+      `baud: ${result.config.baudRate} bps`,
       `timeout: ${result.config.timeout} ms`,
       `tx[${result.tx.length}]: ${result.tx.hex || "-"}`,
       `rx[${result.rx.length}]: ${result.rx.hex || "(no response)"}`,
