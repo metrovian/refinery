@@ -42,7 +42,6 @@
 
   function renderPendingMessage() {
     resultOutputEl.textContent = [
-      `driver: ${driverTypeEl.value}`,
       "status: not-implemented",
       "message: transport logic is not connected yet",
     ].join("\n");
@@ -50,7 +49,6 @@
 
   function renderUartResult(result) {
     renderLines([
-      `driver: ${result.driver}`,
       `device: ${result.config.devicePath}`,
       `baud: ${result.config.baudRate}`,
       `format: ${result.config.dataBits}${result.config.parity[0].toUpperCase()}${result.config.stopBits}`,
@@ -63,7 +61,6 @@
 
   function renderSpiResult(result) {
     renderLines([
-      `driver: ${result.driver}`,
       `device: ${result.config.devicePath}`,
       `speed: ${result.config.speed} Hz`,
       `mode: ${result.config.mode}`,
@@ -77,7 +74,6 @@
 
   function renderI2cResult(result) {
     renderLines([
-      `driver: ${result.driver}`,
       `device: ${result.config.devicePath}`,
       `address: ${result.config.address}`,
       `speed: ${result.config.speed} Hz`,
@@ -105,7 +101,7 @@
         };
       },
       renderPending(payload) {
-        renderLines(["driver: uart", "status: pending", `device: ${payload.devicePath || "/dev/serial0"}`]);
+        renderLines(["status: pending", `device: ${payload.devicePath || "/dev/serial0"}`]);
       },
       renderResult: renderUartResult,
     },
@@ -123,7 +119,7 @@
         };
       },
       renderPending(payload) {
-        renderLines(["driver: spi", "status: pending", `device: ${payload.devicePath || "/dev/spidev0.0"}`]);
+        renderLines(["status: pending", `device: ${payload.devicePath || "/dev/spidev0.0"}`]);
       },
       renderResult: renderSpiResult,
     },
@@ -142,7 +138,6 @@
       },
       renderPending(payload) {
         renderLines([
-          "driver: i2c",
           "status: pending",
           `device: ${payload.devicePath || "/dev/i2c-1"}`,
           `address: ${payload.address || "-"}`,
@@ -181,7 +176,6 @@
       config.renderResult(result);
     } catch (error) {
       renderLines([
-        `driver: ${driver}`,
         "status: failed",
         `error: ${error instanceof Error ? error.message : "Unknown error"}`,
       ]);
