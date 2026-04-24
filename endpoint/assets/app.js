@@ -18,6 +18,10 @@
     return fieldEl ? fieldEl.value : "";
   }
 
+  function getNumberFieldValue(driver, key) {
+    return Number(getFieldValue(driver, key));
+  }
+
   function renderLines(lines) {
     resultOutputEl.textContent = lines.join("\n");
   }
@@ -40,86 +44,86 @@
     resultOutputEl.textContent = "-";
   }
 
-  function renderPendingMessage() {
-    resultOutputEl.textContent = [
-      "status: not-implemented",
-      "message: transport logic is not connected yet",
-    ].join("\n");
-  }
-
-  function renderUartResult(result) {
+  function renderTransferResult(details, tx, rx) {
     renderLines([
-      `device: ${result.config.devicePath}`,
-      `set: ${result.config.dataBits}${result.config.parity[0].toUpperCase()}${result.config.stopBits}`,
-      `baud: ${result.config.baudRate} bps`,
-      `timeout: ${result.config.timeout} ms`,
-      `tx[${result.tx.length}]: ${result.tx.hex || "-"}`,
-      `rx[${result.rx.length}]: ${result.rx.hex || "(no response)"}`,
+      ...details,
+      `tx[${tx.length}]: ${tx.hex || "-"}`,
+      `rx[${rx.length}]: ${rx.hex || "(no response)"}`,
     ]);
   }
 
-  function renderSpiResult(result) {
-    renderLines([
-      `device: ${result.config.devicePath}`,
-      `speed: ${result.config.speed} Hz`,
-      `mode: ${result.config.mode}`,
-      `bits: ${result.config.bitsPerWord}`,
-      `delay: ${result.config.delay} us`,
-      `tx[${result.tx.length}]: ${result.tx.hex || "-"}`,
-      `rx[${result.rx.length}]: ${result.rx.hex || "(no response)"}`,
-    ]);
+  function renderPending(details) {
+    renderLines(["status: pending", ...details]);
   }
 
-  function renderI2cResult(result) {
-    renderLines([
-      `device: ${result.config.devicePath}`,
-      `address: ${result.config.address}`,
-      `speed: ${result.config.speed} Hz`,
-      `timeout: ${result.config.timeout} ms`,
-      `tx[${result.tx.length}]: ${result.tx.hex || "-"}`,
-      `rx[${result.rx.length}]: ${result.rx.hex || "(no response)"}`,
-    ]);
+  function createDriverConfig(spec) {
+    return {
+      endpoint: spec.endpoint,
+      errorMessage: spec.errorMessage,
+      buildPayload: spec.buildPayload,
+      renderPending(payload) {
+        renderPending(spec.pendingLines(payload));
+      },
+      renderResult(result) {
+        renderTransferResult(spec.resultLines(result), result.tx, result.rx);
+      },
+    };
   }
 
   const driverConfigs = {
-    uart: {
+    uart: createDriverConfig({
       endpoint: "/api/endpoint/uart/send",
       errorMessage: "UART transfer failed.",
       buildPayload() {
         return {
           input: inputEl.value,
           devicePath: getFieldValue("uart", "device-path"),
-          baudRate: Number(getFieldValue("uart", "baud-rate")),
-          dataBits: Number(getFieldValue("uart", "data-bits")),
+          baudRate: getNumberFieldValue("uart", "baud-rate"),
+          dataBits: getNumberFieldValue("uart", "data-bits"),
           parity: getFieldValue("uart", "parity"),
-          stopBits: Number(getFieldValue("uart", "stop-bits")),
-          timeout: Number(getFieldValue("uart", "timeout")),
+          stopBits: getNumberFieldValue("uart", "stop-bits"),
+          timeout: getNumberFieldValue("uart", "timeout"),
         };
       },
-      renderPending(payload) {
-        renderLines(["status: pending", `device: ${payload.devicePath || "/dev/serial0"}`]);
+      pendingLines(payload) {
+        return [`device: ${payload.devicePath || "/dev/serial0"}`];
       },
-      renderResult: renderUartResult,
-    },
-    spi: {
+      resultLines(result) {
+        return [
+          `device: ${result.config.devicePath}`,
+          `set: ${result.config.dataBits}${result.config.parity[0].toUpperCase()}${result.config.stopBits}`,
+          `baud: ${result.config.baudRate} bps`,
+          `timeout: ${result.config.timeout} ms`,
+        ];
+      },
+    }),
+    spi: createDriverConfig({
       endpoint: "/api/endpoint/spi/send",
       errorMessage: "SPI transfer failed.",
       buildPayload() {
         return {
           input: inputEl.value,
           devicePath: getFieldValue("spi", "device-path"),
-          speed: Number(getFieldValue("spi", "speed")),
-          mode: Number(getFieldValue("spi", "mode")),
-          bitsPerWord: Number(getFieldValue("spi", "bits-per-word")),
-          delay: Number(getFieldValue("spi", "delay")),
+          speed: getNumberFieldValue("spi", "speed"),
+          mode: getNumberFieldValue("spi", "mode"),
+          bitsPerWord: getNumberFieldValue("spi", "bits-per-word"),
+          delay: getNumberFieldValue("spi", "delay"),
         };
       },
-      renderPending(payload) {
-        renderLines(["status: pending", `device: ${payload.devicePath || "/dev/spidev0.0"}`]);
+      pendingLines(payload) {
+        return [`device: ${payload.devicePath || "/dev/spidev0.0"}`];
       },
-      renderResult: renderSpiResult,
-    },
-    i2c: {
+      resultLines(result) {
+        return [
+          `device: ${result.config.devicePath}`,
+          `speed: ${result.config.speed} Hz`,
+          `mode: ${result.config.mode}`,
+          `bits: ${result.config.bitsPerWord}`,
+          `delay: ${result.config.delay} us`,
+        ];
+      },
+    }),
+    i2c: createDriverConfig({
       endpoint: "/api/endpoint/i2c/send",
       errorMessage: "I2C transfer failed.",
       buildPayload() {
@@ -127,20 +131,26 @@
           input: inputEl.value,
           devicePath: getFieldValue("i2c", "device-path"),
           address: getFieldValue("i2c", "address"),
-          speed: Number(getFieldValue("i2c", "speed")),
-          readLength: Number(getFieldValue("i2c", "read-length")),
-          timeout: Number(getFieldValue("i2c", "timeout")),
+          speed: getNumberFieldValue("i2c", "speed"),
+          readLength: getNumberFieldValue("i2c", "read-length"),
+          timeout: getNumberFieldValue("i2c", "timeout"),
         };
       },
-      renderPending(payload) {
-        renderLines([
-          "status: pending",
+      pendingLines(payload) {
+        return [
           `device: ${payload.devicePath || "/dev/i2c-1"}`,
           `address: ${payload.address || "-"}`,
-        ]);
+        ];
       },
-      renderResult: renderI2cResult,
-    },
+      resultLines(result) {
+        return [
+          `device: ${result.config.devicePath}`,
+          `address: ${result.config.address}`,
+          `speed: ${result.config.speed} Hz`,
+          `timeout: ${result.config.timeout} ms`,
+        ];
+      },
+    }),
   };
 
   async function sendDriverRequest(driver) {
@@ -201,10 +211,7 @@
     buttonEl.addEventListener("click", () => {
       if (driverTypeEl.value in driverConfigs) {
         void sendDriverRequest(driverTypeEl.value);
-        return;
       }
-
-      renderPendingMessage();
     });
   });
 
