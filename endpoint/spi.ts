@@ -1,9 +1,6 @@
-import { execFile } from "child_process";
-import path from "path";
-import { promisify } from "util";
 import { parseHexInput, parseNumber } from "./base";
+import { runPythonHelper } from "./helper";
 
-const execFileAsync = promisify(execFile);
 const DEFAULT_SPI_DEVICE = "/dev/spidev0.0";
 
 export type SpiRequest = {
@@ -107,32 +104,17 @@ export async function transferOverSpi(body: SpiRequest): Promise<SpiTransferResu
 
   const txBytes = parseHexInput(body.input);
   const config = readSpiConfig(body);
-  const helperPath = path.join(process.cwd(), "endpoint", "scripts", "spi_transfer.py");
 
-  try {
-    const { stdout, stderr } = await execFileAsync("python3", [
-      helperPath,
-      JSON.stringify({
-        devicePath: config.devicePath,
-        speed: config.speed,
-        mode: config.mode,
-        bitsPerWord: config.bitsPerWord,
-        delay: config.delay,
-        txBytes,
-      }),
-    ]);
-    const payload = JSON.parse(stdout) as SpiHelperResult | { ok: false; error?: string };
-
-    if (!payload || payload.ok !== true) {
-      const message = !payload || typeof payload.error !== "string" ? stderr.trim() || "SPI transfer failed." : payload.error;
-      throw new Error(message);
-    }
-
-    return payload;
-  } catch (error) {
-    const stderr = error instanceof Error && "stderr" in error ? String(error.stderr ?? "") : "";
-    const detail = stderr.trim();
-    const message = error instanceof Error ? error.message : "SPI transfer failed.";
-    throw new Error(detail || message);
-  }
+  return runPythonHelper<SpiHelperResult>(
+    "spi_transfer.py",
+    {
+      devicePath: config.devicePath,
+      speed: config.speed,
+      mode: config.mode,
+      bitsPerWord: config.bitsPerWord,
+      delay: config.delay,
+      txBytes,
+    },
+    "SPI transfer failed.",
+  );
 }

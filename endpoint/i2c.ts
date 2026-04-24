@@ -1,9 +1,6 @@
-import { execFile } from "child_process";
-import path from "path";
-import { promisify } from "util";
 import { formatHex, parseHexInput, parseNumber } from "./base";
+import { runPythonHelper } from "./helper";
 
-const execFileAsync = promisify(execFile);
 const DEFAULT_I2C_DEVICE = "/dev/i2c-1";
 
 export type I2cRequest = {
@@ -113,43 +110,29 @@ export async function transferOverI2c(body: I2cRequest): Promise<I2cTransferResu
 
   const txBytes = parseHexInput(body.input);
   const config = readI2cConfig(body);
-  const helperPath = path.join(process.cwd(), "endpoint", "scripts", "i2c_transfer.py");
+  const payload = await runPythonHelper<I2cHelperResult>(
+    "i2c_transfer.py",
+    {
+      devicePath: config.devicePath,
+      address: config.addressValue,
+      speed: config.speed,
+      readLength: config.readLength,
+      timeout: config.timeout,
+      txBytes,
+    },
+    "I2C transfer failed.",
+  );
 
-  try {
-    const { stdout, stderr } = await execFileAsync("python3", [
-      helperPath,
-      JSON.stringify({
-        devicePath: config.devicePath,
-        address: config.addressValue,
-        speed: config.speed,
-        readLength: config.readLength,
-        timeout: config.timeout,
-        txBytes,
-      }),
-    ]);
-    const payload = JSON.parse(stdout) as I2cHelperResult | { ok: false; error?: string };
-
-    if (!payload || payload.ok !== true) {
-      const message = !payload || typeof payload.error !== "string" ? stderr.trim() || "I2C transfer failed." : payload.error;
-      throw new Error(message);
-    }
-
-    return {
-      ...payload,
-      config: {
-        ...payload.config,
-        address: config.address,
-      },
-      tx: {
-        bytes: txBytes,
-        hex: formatHex(txBytes),
-        length: txBytes.length,
-      },
-    };
-  } catch (error) {
-    const stderr = error instanceof Error && "stderr" in error ? String(error.stderr ?? "") : "";
-    const detail = stderr.trim();
-    const message = error instanceof Error ? error.message : "I2C transfer failed.";
-    throw new Error(detail || message);
-  }
+  return {
+    ...payload,
+    config: {
+      ...payload.config,
+      address: config.address,
+    },
+    tx: {
+      bytes: txBytes,
+      hex: formatHex(txBytes),
+      length: txBytes.length,
+    },
+  };
 }
