@@ -131,7 +131,6 @@
           input: inputEl.value,
           devicePath: getFieldValue("i2c", "device-path"),
           address: getFieldValue("i2c", "address"),
-          speed: getNumberFieldValue("i2c", "speed"),
           readLength: getNumberFieldValue("i2c", "read-length"),
           timeout: getNumberFieldValue("i2c", "timeout"),
         };
@@ -146,7 +145,6 @@
         return [
           `device: ${result.config.devicePath}`,
           `address: ${result.config.address}`,
-          `speed: ${result.config.speed} Hz`,
           `timeout: ${result.config.timeout} ms`,
         ];
       },

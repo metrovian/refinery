@@ -7,7 +7,6 @@ export type I2cRequest = {
   input: string;
   devicePath?: string;
   address?: string;
-  speed?: number;
   readLength?: number;
   timeout?: number;
 };
@@ -16,7 +15,6 @@ export type I2cConfig = {
   devicePath: string;
   address: string;
   addressValue: number;
-  speed: number;
   readLength: number;
   timeout: number;
 };
@@ -77,13 +75,8 @@ function parseI2cAddress(value: string): { address: string; addressValue: number
 function readI2cConfig(body: I2cRequest): I2cConfig {
   const devicePath = resolveI2cDevice(typeof body.devicePath === "string" ? body.devicePath : "");
   const { address, addressValue } = parseI2cAddress(typeof body.address === "string" ? body.address : "");
-  const speed = parseNumber(body.speed, "speed", 100_000);
   const readLength = parseNumber(body.readLength, "readLength", 0);
   const timeout = parseNumber(body.timeout, "timeout", 0);
-
-  if (!Number.isInteger(speed) || speed <= 0) {
-    throw new Error("`speed` must be a positive integer.");
-  }
 
   if (!Number.isInteger(readLength) || readLength < 0 || readLength > 4096) {
     throw new Error("`readLength` must be an integer between 0 and 4096.");
@@ -97,7 +90,6 @@ function readI2cConfig(body: I2cRequest): I2cConfig {
     devicePath,
     address,
     addressValue,
-    speed,
     readLength,
     timeout,
   };
@@ -115,7 +107,6 @@ export async function transferOverI2c(body: I2cRequest): Promise<I2cTransferResu
     {
       devicePath: config.devicePath,
       address: config.addressValue,
-      speed: config.speed,
       readLength: config.readLength,
       timeout: config.timeout,
       txBytes,

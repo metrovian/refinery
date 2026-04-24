@@ -96,7 +96,6 @@ const driverSections: DriverSection[] = [
     fields: [
       { key: "device-path", label: "DEVICE", control: "input", inputType: "text", value: "/dev/i2c-1" },
       { key: "address", label: "ADDRESS", control: "input", inputType: "text", value: "0x3C" },
-      { key: "speed", label: "SPEED", control: "input", inputType: "number", value: "100000" },
       { key: "read-length", label: "READ LENGTH", control: "input", inputType: "number", value: "0" },
     ],
     actionField: { key: "timeout", label: "TIMEOUT", inputType: "number", value: "1000" },

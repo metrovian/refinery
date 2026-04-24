@@ -30,7 +30,6 @@ def main() -> None:
     try:
         device_path = str(payload["devicePath"])
         address = int(payload["address"])
-        speed = int(payload["speed"])
         read_length = int(payload["readLength"])
         timeout = int(payload["timeout"])
         tx_bytes = bytes(int(value) for value in payload["txBytes"])
@@ -64,7 +63,6 @@ def main() -> None:
                     "devicePath": device_path,
                     "address": f"0x{address:02X}",
                     "addressValue": address,
-                    "speed": speed,
                     "readLength": read_length,
                     "timeout": timeout,
                 },
