@@ -7,7 +7,6 @@ const MARKERS = {
   parseType: "// [PARSER:PARSE_TYPE]",
   registryImport: "// [PARSER:REGISTRY_IMPORT]",
   registryEntry: "// [PARSER:REGISTRY_ENTRY]",
-  uiOption: "<!-- [PARSER:UI_OPTION] -->",
 };
 
 function usage() {
@@ -115,7 +114,6 @@ function main() {
   }
 
   const type = rawType;
-  const optionLabel = type.toUpperCase();
   const parseFnName = `parse${toPascalCase(type)}`;
 
   const hexDir = path.resolve(__dirname, "..");
@@ -123,7 +121,6 @@ function main() {
   const parserFile = path.join(parserDir, `${type}.ts`);
   const typesFile = path.join(hexDir, "types.ts");
   const registryFile = path.join(hexDir, "registry.ts");
-  const uiFile = path.join(hexDir, "ui.ts");
 
   if (fs.existsSync(parserFile)) {
     fail(`Parser file already exists: ${parserFile}`);
@@ -137,11 +134,6 @@ function main() {
   const registryContent = readFile(registryFile);
   if (registryContent.includes(`"./parsers/${type}"`)) {
     fail(`Registry already imports parser "${type}".`);
-  }
-
-  const uiContent = readFile(uiFile);
-  if (uiContent.includes(`<option value="${type}">`)) {
-    fail(`UI option already exists for "${type}".`);
   }
 
   ensureDir(parserDir);
@@ -167,18 +159,10 @@ function main() {
   );
   writeFile(registryFile, nextRegistry);
 
-  const nextUi = insertBeforeMarkerLine(
-    uiContent,
-    MARKERS.uiOption,
-    [`<option value="${type}">${optionLabel}</option>`]
-  );
-  writeFile(uiFile, nextUi);
-
   console.log(`Added parser "${type}"`);
   console.log(`- ${path.relative(process.cwd(), parserFile)}`);
   console.log(`- ${path.relative(process.cwd(), typesFile)}`);
   console.log(`- ${path.relative(process.cwd(), registryFile)}`);
-  console.log(`- ${path.relative(process.cwd(), uiFile)}`);
 }
 
 main();

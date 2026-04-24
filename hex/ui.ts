@@ -1,12 +1,18 @@
+import { listParsers } from "./registry";
+
+function renderParserOptions(): string {
+  return listParsers()
+    .map(({ type, label }) => `<option value="${type}">${label}</option>`)
+    .join("\n");
+}
+
 export function renderHexPanel(): string {
   return `<section class="page-panel hex-panel">
     <div class="input-box">
       <div class="control-row">
         <div class="select-wrap">
           <select id="parser-type" class="top-select">
-            <option value="modbus-rtu">MODBUS-RTU</option>
-            <option value="midi">MIDI</option>
-            <!-- [PARSER:UI_OPTION] -->
+            ${renderParserOptions()}
           </select>
         </div>
       </div>
