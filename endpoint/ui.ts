@@ -39,7 +39,6 @@ const driverSections: DriverSection[] = [
     type: "uart",
     fields: [
       { key: "device-path", label: "DEVICE", control: "input", inputType: "text", value: "/dev/serial0" },
-      { key: "baud-rate", label: "BAUD RATE", control: "input", inputType: "number", value: "115200" },
       {
         key: "data-bits",
         label: "DATA BITS",
@@ -68,6 +67,7 @@ const driverSections: DriverSection[] = [
           { value: "2", label: "2" },
         ],
       },
+      { key: "baud-rate", label: "BAUD RATE", control: "input", inputType: "number", value: "115200" },
     ],
     actionField: { key: "timeout", label: "TIMEOUT", inputType: "number", value: "1000" },
   },
@@ -75,19 +75,19 @@ const driverSections: DriverSection[] = [
     type: "spi",
     fields: [
       { key: "device-path", label: "DEVICE", control: "input", inputType: "text", value: "/dev/spidev0.0" },
-      { key: "speed", label: "SPEED", control: "input", inputType: "number", value: "1000000" },
       {
         key: "mode",
         label: "MODE",
         control: "select",
         options: [
-          { value: "0", label: "mode 0" },
-          { value: "1", label: "mode 1" },
-          { value: "2", label: "mode 2" },
-          { value: "3", label: "mode 3" },
+          { value: "0", label: "0" },
+          { value: "1", label: "1" },
+          { value: "2", label: "2" },
+          { value: "3", label: "3" },
         ],
       },
       { key: "bits-per-word", label: "BITS", control: "input", inputType: "number", value: "8" },
+      { key: "speed", label: "SPEED", control: "input", inputType: "number", value: "1000000" },
     ],
     actionField: { key: "delay", label: "DELAY", inputType: "number", value: "0" },
   },

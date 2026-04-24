@@ -116,9 +116,9 @@
       resultLines(result) {
         return [
           `device: ${result.config.devicePath}`,
-          `speed: ${result.config.speed} Hz`,
           `mode: ${result.config.mode}`,
           `bits: ${result.config.bitsPerWord}`,
+          `speed: ${result.config.speed} Hz`,
           `delay: ${result.config.delay} us`,
         ];
       },
