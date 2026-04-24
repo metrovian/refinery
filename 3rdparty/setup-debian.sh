@@ -5,4 +5,6 @@ git submodule update --init --recursive
 sudo apt update
 sudo apt install \
     nodejs \
-    npm
+    npm \
+
+sudo npm ci
