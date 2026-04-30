@@ -1,102 +1,117 @@
 # AGENTS.md
 
-## 목적
-- 이 저장소는 Express + TypeScript 기반의 통신 도구 프로토타입입니다.
-- 현재 핵심 기능은 Hex 입력 기반 `MODBUS-RTU`/`MIDI` 파싱 API와 루트 UI(`/`)의 Hex 패널입니다.
-- 루트 UI에는 `endpoint` 패널도 함께 포함되며, 현재 `UART`/`SPI`/`I2C` 전송 API와 연결되어 있습니다.
-- `endpoint` 전송 구현은 TypeScript 서버 코드와 Python helper 스크립트를 함께 사용합니다.
+## Role
+- Repo = Express + TypeScript communication-tool prototype.
+- Main domains:
+  - `hex/`: Hex input parsing APIs + root Hex panel.
+  - `endpoint/`: UART/SPI/I2C send APIs + root endpoint panel.
+- `endpoint/` uses TypeScript server code plus Python helper scripts.
 
-## 작업 범위 규칙
-- `archive/` 디렉터리는 무시합니다. (읽기/수정/탐색 대상에서 제외)
-- 애플리케이션 소스 수정은 `server/`, `endpoint/`, `hex/`를 우선합니다.
-- `dist/`는 빌드 산출물입니다. 필요 시 `npm run build`로 재생성하며 수동 편집하지 않습니다.
-- `node_modules/`는 수정하지 않습니다.
-- 외부 환경 보조 스크립트는 `3rdparty/`에 있으며, 특히 `setup-debian.sh`는 `git reset --hard`, `git clean -fd`, `sudo apt install`을 포함하므로 명시적 요청 없이 실행하지 않습니다.
+## Scope
+- Ignore `archive/` completely. Do not read, search, or edit it.
+- Prefer edits in `server/`, `endpoint/`, `hex/`.
+- Never manually edit `dist/`; regenerate with `npm run build`.
+- Do not edit `node_modules/`.
+- Do not run `3rdparty/setup-debian.sh` unless explicitly requested.
+  - Reason: contains `git reset --hard`, `git clean -fd`, `sudo apt install`.
 
-## 디렉터리 구조 (archive 제외)
-- `server/`: 앱 초기화 및 서버 부트스트랩
-  - `app.ts`: 미들웨어/라우터 등록
-  - `index.ts`: `HOST`/`PORT`로 서버 실행
-  - `ui.ts`: 루트 HTML 렌더링, `endpoint`/`hex` 패널 조합 및 공용 스크립트 등록
-  - `assets/styles.css`: 공통 레이아웃/패널 스타일
-  - `assets/hex-input.js`: endpoint/hex 패널이 공유하는 Hex 입력 sanitize 유틸
-- `endpoint/`: 통신 엔드포인트 도메인
-  - `router.ts`: `/api/endpoint/health`, `/api/endpoint/uart/send`, `/api/endpoint/spi/send`, `/api/endpoint/i2c/send`
-  - `ui.ts`: UART/SPI/I2C 설정 패널 렌더링
-  - `base.ts`: endpoint 공통 Hex 입력 파싱/포맷/숫자 파싱 유틸
-  - `uart.ts`: UART 요청 검증 및 `/dev/serial0` 기반 전송
-  - `spi.ts`: SPI 요청 검증 및 Python helper 호출
-  - `i2c.ts`: I2C 요청 검증 및 Python helper 호출
-  - `scripts/`: 실제 장치 접근용 Python helper (`spi_transfer.py`, `i2c_transfer.py`)
-  - `assets/`: 엔드포인트 패널 전용 스크립트/스타일
-- `hex/`: Hex 파싱 도메인
-  - `router.ts`: `/api/hex/parsers`, `/api/hex/parser`
-  - `ui.ts`: Hex 파서 패널 렌더링
-  - `registry.ts`, `types.ts`: 파서 타입/레지스트리
-  - `parsers/`: 파서 구현 (`base.ts`, `modbus-rtu.ts`, `midi.ts`)
-  - `assets/`: Hex 패널 프런트엔드 스크립트 (`app.js`)
-  - `scripts/add-parser.js`: 새 파서 스캐폴딩 스크립트
-- `3rdparty/`: 외부 환경 보조 스크립트
-- `README.md`: 매우 간단한 개요만 있으므로, 상세 구조 판단은 실제 코드 기준으로 합니다.
+## Map
+- `server/`
+  - `app.ts`: mounts routes/static assets.
+  - `index.ts`: boots server with `HOST` / `PORT`.
+  - `ui.ts`: renders `/`, combines endpoint + hex panels, loads shared scripts.
+  - `assets/styles.css`: shared layout/panel styles.
+  - `assets/hex-input.js`: shared Hex input sanitizer for endpoint + hex UIs.
+- `endpoint/`
+  - `router.ts`: `/api/endpoint/health`, `/uart/send`, `/spi/send`, `/i2c/send`.
+  - `ui.ts`: UART/SPI/I2C config panels.
+  - `base.ts`: shared hex/number parse + format helpers.
+  - `uart.ts`: UART validation + `/dev/serial0` transfer.
+  - `spi.ts`, `i2c.ts`: validation + Python helper execution.
+  - `scripts/`: `spi_transfer.py`, `i2c_transfer.py`.
+  - `assets/`: endpoint-only frontend assets.
+- `hex/`
+  - `router.ts`: `/api/hex/parsers`, `/api/hex/parser`.
+  - `ui.ts`: Hex parser panel.
+  - `registry.ts`, `types.ts`: parser registry/types.
+  - `parsers/`: parser implementations (`modbus-rtu`, `midi`, shared base).
+  - `assets/app.js`: Hex panel frontend.
+  - `scripts/add-parser.js`: parser scaffold generator.
+- `3rdparty/`: external environment helpers.
+- `README.md`: minimal; trust code over README.
 
-## 실행/빌드 명령
-- 개발 서버: `npm run dev`
-- 빌드: `npm run build`
-- 실행(빌드 결과): `npm run start`
-- 파서 스캐폴딩: `npm run add:parser -- <type>`
+## Commands
+- Dev: `npm run dev`
+- Build: `npm run build`
+- Start built app: `npm run start`
+- Add parser: `npm run add:parser -- <type>`
 
-## 코드 변경 가이드
-- TypeScript `strict` 모드 기준으로 타입 안정성을 유지합니다.
-- 서버는 `server/app.ts`에서 `/api/endpoint`, `/api/hex`, 정적 자산 경로를 묶어서 등록합니다. 새 라우트/자산을 추가할 때 이 조합을 기준으로 맞춥니다.
-- `server/ui.ts`는 공용 스크립트 로드 순서에 의존합니다. 공용 프런트엔드 유틸을 추가할 경우 패널 스크립트보다 먼저 포함되도록 유지합니다.
-- Hex 파서 API 응답 스키마는 아래 형태를 유지합니다.
-  - 성공: `ok: true`, `type`, `bytes`, `hex`, `length`, `parsed`
-  - 실패: `ok: false`, `type`, `error`
-- endpoint 전송 API 응답은 드라이버별 `config`, `tx`, `rx` 구조를 유지합니다.
-  - 성공: `ok: true`, `driver`, `config`, `tx`, `rx`
-  - 실패: `ok: false`, `driver`, `error`
-- `hex/assets/app.js`는 `parsed` 객체의 key/value를 그대로 표시하므로, 파서 구현은 사람이 읽을 수 있는 평탄한 필드를 우선 반환합니다.
-- `endpoint/assets/app.js`와 `hex/assets/app.js`는 공용 Hex sanitize 정책을 `server/assets/hex-input.js`에서 공유합니다. 입력 규칙을 바꿀 때는 두 파일을 따로 수정하지 말고 공용 유틸을 먼저 확인합니다.
-- Hex 입력창은 현재 `0-9`, `A-F`, 공백/구분자만 허용하며 `0x` prefix는 허용하지 않습니다. 이 전제와 서버 파서를 어긋나게 변경하지 않습니다.
-- 빈 Hex 입력은 프런트엔드에서 먼저 `-`로 처리합니다. 단순 빈 입력 처리를 위해 parser/driver 예외 흐름을 추가하지 않습니다.
-- 새 Hex 파서를 추가할 때는 두 방법 중 하나를 사용합니다.
-  1. 권장: `npm run add:parser -- <type>` 실행 후 생성된 파일을 구체화합니다.
-  2. 수동: `hex/types.ts`, `hex/parsers/`, `hex/registry.ts`, `hex/ui.ts`를 함께 수정합니다.
-- `hex/scripts/add-parser.js`는 마커 주석(`PARSER:*`)에 의존하므로, 관련 파일에서 해당 마커를 제거하거나 훼손하지 않습니다.
-- `endpoint/` 전송 구현은 드라이버별 장치 검증은 각 파일(`uart.ts`, `spi.ts`, `i2c.ts`)에 유지하고, 공통 Hex/숫자 처리만 `endpoint/base.ts`에 둡니다.
-- `SPI`/`I2C`는 Python helper 스크립트 출력 JSON을 TypeScript가 그대로 소비하므로, helper 출력 필드명과 TypeScript 타입을 어긋나게 변경하지 않습니다.
-- `endpoint/ui.ts`는 `fields`와 `actionField`를 분리한 구조입니다. 버튼 위치를 바꾸기 위해 마지막 일반 필드 의미를 억지로 변경하지 않습니다.
+## Invariants
+- Keep TypeScript `strict` compatibility.
+- Route/static registration pattern is centered in `server/app.ts`; match that shape for new routes/assets.
+- `server/ui.ts` depends on shared script load order.
+  - Shared frontend utilities must load before panel-specific scripts.
+- Hex input policy is shared via `server/assets/hex-input.js`.
+  - If input rules change, update shared sanitizer first.
+  - Do not diverge `endpoint/assets/app.js` and `hex/assets/app.js`.
+- Accepted Hex input: `0-9`, `A-F`, spaces/separators only.
+  - `0x` prefix is not allowed.
+  - Do not make server parsing disagree with this UI rule.
+- Empty Hex input is handled in frontend as `-`.
+  - Do not add special empty-input exception paths in parsers/drivers just for this.
 
-## 커밋 메시지 규칙 (확정)
-- 사용자 스타일 고정 템플릿:
-  - 1행(제목): `TYPE. [SCOPE]`
-  - 2행(내용): `- 변경 내용`
-- 제목에 설명을 붙이지 않습니다. (`- ...`를 제목에 쓰지 않음)
-- 제목 다음 줄부터 바로 본문을 작성합니다. (빈 줄 금지)
-- 본문 첫 줄은 반드시 `- `로 시작합니다.
-- 메시지에 `\n` 문자열을 입력하지 않고 실제 줄바꿈만 사용합니다.
+## API Contracts
+- Hex parser success response:
+  - `ok: true`, `type`, `bytes`, `hex`, `length`, `parsed`
+- Hex parser failure response:
+  - `ok: false`, `type`, `error`
+- Endpoint send success response:
+  - `ok: true`, `driver`, `config`, `tx`, `rx`
+- Endpoint send failure response:
+  - `ok: false`, `driver`, `error`
+- `hex/assets/app.js` renders `parsed` as raw key/value pairs.
+  - Parser outputs should stay flat and human-readable.
+- `SPI` / `I2C` Python helpers emit JSON consumed directly by TypeScript.
+  - Do not drift helper field names from TS types.
 
-### TYPE/SCOPE 규칙
-- `TYPE` 허용값:
+## Change Rules
+- Keep driver-specific device validation in each driver file:
+  - `endpoint/uart.ts`
+  - `endpoint/spi.ts`
+  - `endpoint/i2c.ts`
+- Keep only shared hex/number handling in `endpoint/base.ts`.
+- `endpoint/ui.ts` separates `fields` from `actionField`.
+  - Do not repurpose the last regular field to move buttons.
+- For new Hex parsers:
+  - Preferred: run `npm run add:parser -- <type>` and fill in generated files.
+  - Manual path: update `hex/types.ts`, `hex/parsers/`, `hex/registry.ts`, `hex/ui.ts`.
+- `hex/scripts/add-parser.js` depends on `PARSER:*` marker comments.
+  - Do not remove or corrupt those markers.
+
+## Commit Rules
+- Commit message format is fixed:
+  - line 1: `TYPE. [SCOPE]`
+  - line 2: `- change summary`
+- No blank line between title and body.
+- Do not append explanation text to the title.
+- First body line must start with `- `.
+- Use real newlines, not literal `\n`.
+- Allowed `TYPE` values:
   - `ADD.`
   - `CHANGE.`
   - `DELETE.`
   - `FORMAT.`
   - `FIXED.`
-- `SCOPE`는 대문자 태그 사용:
-  - 예: `[HEX]`, `[COMMON]`, `[README]`, `[ARCH]`
-- 여러 도메인이 섞이면 `SCOPE`는 `[COMMON]`을 우선합니다.
+- `SCOPE` must be uppercase tags such as `[HEX]`, `[COMMON]`, `[README]`, `[ARCH]`.
+- If multiple domains are mixed, prefer `[COMMON]`.
 
-### 커밋 전 리뷰 강제 절차
-- 아래 점검 3개를 모두 완료하기 전에는 커밋하지 않습니다.
-  1. `git diff --cached --name-only`로 스테이징 파일 목록 검토
-  2. `git diff --cached`로 변경 내용 검토
-  3. 커밋 제목/본문이 규칙과 실제 변경사항에 일치하는지 검토
+## Pre-Commit Review
+- Before any commit, complete all 3 checks:
+  1. `git diff --cached --name-only`
+  2. `git diff --cached`
+  3. Verify commit title/body match both rules and actual staged changes.
 
-### 작성 예시
-- `ADD. [COMMON]`
-- `- AGENTS.md 파일 업로드`
-
-## 검증 기준
-- 필수 검증: `npm run build` 성공
-- Python helper를 수정했다면 추가로 `python3 -m py_compile endpoint/scripts/i2c_transfer.py endpoint/scripts/spi_transfer.py` 검증을 권장합니다.
+## Verify
+- Required: `npm run build`
+- If Python helpers changed, also run:
+  - `python3 -m py_compile endpoint/scripts/i2c_transfer.py endpoint/scripts/spi_transfer.py`
